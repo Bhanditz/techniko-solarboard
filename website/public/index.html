@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="solarboard">
+
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Dashboard voor de zonnepanelen van Techniko">
+    <meta name="author" content="Ives van Hoorne">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="./bower_components/materialize/dist/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css" />
+    <title>SolarPanel</title>
+</head>
+
+<body>
+    <header>
+        <ul id="slide-out" class="side-nav fixed" ng-controller="MenuController as menu">
+            <li class="logo">
+                <img class="logoimg" src="res/logo.png">
+            </li>
+            <li ng-class="menu.isTab(0) ? 'bold active' : ''"><a ng-click="menu.setTab(0)" href="/">Overzicht</a>
+            </li>
+            <li ng-class="menu.isTab(1) ? 'bold active' : ''"><a ng-click="menu.setTab(1)" href="/output">Opwekking</a>
+            </li>
+            <li ng-class="menu.isTab(2) ? 'bold active' : ''"><a ng-click="menu.setTab(2)" href="">Zonnepanelen</a>
+            </li>
+            <li ng-class="menu.isTab(3) ? 'bold active' : ''"><a ng-click="menu.setTab(3)" href="">Exporteren</a>
+            </li>
+        </ul>
+    </header>
+
+    <div class="main reveal-animation" ng-view>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="bower_components/materialize/dist/js/materialize.min.js"></script>
+
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-animate/angular-animate.min.js"></script>
+
+    <script type="text/javascript" src="http://code.highcharts.com/stock/highstock.src.js"></script>
+    <script type="text/javascript" src="/bower_components/highcharts-ng/dist/highcharts-ng.min.js"></script>
+
+    <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="/bower_components/moment/locale/nl.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-moment/angular-moment.min.js"></script>
+
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="/controllers/dashboardcontroller.js"></script>
+    <script type="text/javascript" src="/controllers/menucontroller.js"></script>
+    <script type="text/javascript" src="/controllers/graphcontroller.js"></script>
+</body>
+
+</html>

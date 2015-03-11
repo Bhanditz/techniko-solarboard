@@ -1,0 +1,48 @@
+<div ng-controller="DashboardController as dash">
+    <nav class="top-nav">
+        <div class='container'>
+            <div class="nav-wrapper">
+                <a class="page-title">Overzicht</a>
+            </div>
+        </div>
+    </nav>
+    <div class='container'>
+        <div class="z-depth-1 card" ng-show="dash.outputData">
+            <div class="card-content">
+                <span class="card-title black-text">
+                Vermogen per paneelgroep
+            </span>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Naam</th>
+                            <th>Output (Watt)</th>
+                            <th>Laatste meting</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="solar in dash.outputData">
+                            <td>
+                                <span class='title'><a href="" ng-click="dash.open(solar)">{{solar._id}}</a></span>
+                                <br> {{solar.description}}
+                            </td>
+                            <td>{{solar.output}}</td>
+                            <td>{{dash.getFromNow(solar.updated)}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Totaal</b>
+                            </td>
+                            <td>{{dash.getTotalOutput()}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div ng-hide="dash.outputData" class="card">
+            <div class="card-content red white-text">
+                <h4 class="center-align">Kan niet verbinden met de database.</h4>
+            </div>
+        </div>
+    </div>
+</div>

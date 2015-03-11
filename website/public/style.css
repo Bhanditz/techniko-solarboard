@@ -1,0 +1,114 @@
+.reveal-animation.ng-enter {
+    -webkit-animation: enter_sequence 0.3s linear;
+    /* Safari/Chrome */
+    
+    animation: enter_sequence 0.3s linear;
+    /* IE10+ and Future Browsers */
+}
+
+@-webkit-keyframes enter_sequence {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes enter_sequence {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+html,
+body {
+    height: 100%;
+}
+/***************
+    Nav List
+***************/
+
+ul.table-of-contents li {
+    padding: 2px 0;
+}
+
+ul.side-nav li.logo {
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid #ddd;
+}
+
+ul.side-nav.fixed li.logo:hover {
+    background-color: transparent;
+}
+
+ul.side-nav.fixed {
+    overflow: hidden;
+}
+
+ul.side-nav.fixed li {
+    line-height: 44px;
+}
+
+ul.side-nav.fixed li:hover,
+ul.side-nav.fixed li.active {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+ul.side-nav.fixed li a {
+    font-size: 13px;
+}
+
+ul.side-nav.fixed ul.collapsible-accordion {
+    background-color: #FFF;
+}
+
+ul.side-nav.fixed:hover {
+    overflow-y: auto;
+}
+
+.bold > a {
+    font-weight: bold;
+}
+
+.header,
+.main,
+.footer {
+    padding-left: 240px;
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+}
+
+.main {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+@media only screen and (max-width: 992px) {
+    .header,
+    .main,
+    .footer {
+        padding-left: 10px;
+    }
+}
+
+.logoimg {
+    padding-bottom: 10px;
+}
+
+.top-nav {
+    height: 122px;
+    background-color: #f47933;
+}
+
+nav.top-nav a.page-title {
+    line-height: 122px;
+    font-size: 48px;
+    text-align: center
+}
+}

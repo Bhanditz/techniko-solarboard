@@ -53,15 +53,17 @@ ul.side-nav.fixed {
 
 ul.side-nav.fixed li {
     line-height: 44px;
+    transition: background-color 0.3s ease;
 }
 
 ul.side-nav.fixed li:hover,
 ul.side-nav.fixed li.active {
+    transition: background-color 0.3s ease;
     background-color: rgba(0, 0, 0, 0.05);
 }
 
 ul.side-nav.fixed li a {
-    font-size: 13px;
+    font-size: 14px;
 }
 
 ul.side-nav.fixed ul.collapsible-accordion {
@@ -111,4 +113,14 @@ nav.top-nav a.page-title {
     font-size: 48px;
     text-align: center
 }
+
+.small-title {
+    font-size: 20px;
+    font-weight: 300;
+    color: grey;
+}
+
+.small-content {
+    font-size: 40px;
+    font-weight: 300;
 }

@@ -7,14 +7,25 @@ var mongoose = require('mongoose');
 var Generated = require('../models/generated.js');
 
 router.get('/', function(req, res, next) {
-  Generated.find(function(err, solars) {
+  Generated.find(function(err, data) {
     if (err) return next(err);
-    res.json(solars);
+    res.json(data);
   });
 });
 
-router.get('/:id', function(req, res, next) {
+router.get('/:id/:date', function(req, res, next) {
+  //For when the date is given in a human way (ISO), otherwise use Unix.
+  var dateM = moment(req.params.date);
+  var date = "";
+  if(!dateM.isValid()) date = req.params.date;
+  else date = dateM.startOf('day').format('X');
 
+  var id = req.params.id + ":" + date;
+  Generated.findById(id, function(err, data) {
+    if (err) return next(err);
+    console.log(id);
+    res.json(data);
+  });
 });
 
 router.put('/', function(req, res, next) {
@@ -46,10 +57,10 @@ router.put('/', function(req, res, next) {
   var idDate = moment(date);
   idDate.startOf('day');
 
-  Generated.findById(req.body.solarid + ':' + idDate.format('x'), function(err, result) {
+  Generated.findById(req.body.solarid + ':' + idDate.format('X'), function(err, result) {
     if (!result) {
       result = new Generated({
-        _id: req.body.solarid + ':' + idDate.format('x'),
+        _id: req.body.solarid + ':' + idDate.format('X'),
       });
     }
 

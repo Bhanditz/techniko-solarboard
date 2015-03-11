@@ -1,5 +1,5 @@
 {
-  "name": "solarpanel",
+  "name": "SolarPanel",
   "version": "1.0.0",
   "description": "Dashboard for Solar Panels of Techniko",
   "main": "app.js",
@@ -17,5 +17,18 @@
   "devDependencies": {
     "connect-modrewrite": "^0.7.11",
     "reload": "^0.1.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://compuives@bitbucket.org/compuives/techniko-solarboard.git"
+  },
+  "keywords": [
+    "dashboard",
+    "solar",
+    "panel",
+    "techniko"
+  ]
 }

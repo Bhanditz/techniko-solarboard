@@ -1,0 +1,39 @@
+{
+  "name": "SolarPanel",
+  "version": "0.0.0",
+  "authors": [
+    "Ives van Hoorne <Ives.v.h@gmail.com>"
+  ],
+  "description": "Website for an overview of solar panels",
+  "main": "index.html",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "Techniko",
+    "Solar",
+    "Panel",
+    "Dashboard"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": "~1.3.14",
+    "angular-bootstrap": "~0.12.1",
+    "angular-charts": "~0.2.7",
+    "angular-moment": "~0.9.0",
+    "angular-route": "~1.3.14",
+    "bootstrap-ui": "~0.12.1",
+    "bootstrap": "~3.3.2",
+    "highcharts-ng": "~0.0.7",
+    "materialize": "~0.95.3",
+    "moment": "~2.9.0"
+  }
+}

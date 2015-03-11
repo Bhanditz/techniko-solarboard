@@ -1,0 +1,1 @@
+bash "/home/ubuntu/Documents/MongoDB/mongodb-linux-i686-3.0.0/mongod" --dbpath "/home/ubuntu/Documents/solarpanel/techniko-solarboard"

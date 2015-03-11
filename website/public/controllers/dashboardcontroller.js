@@ -34,7 +34,7 @@ app.controller('DashboardController', function ($rootScope, $http, moment) {
         series: []
     };
 
-    $http.get('http://192.168.1.70:1337/solar')
+    $http.get('http://127.0.0.1:1337/solar')
         .success(function (data, status, headers, config) {
             vm.outputData = data;
             vm.getChartData(data);
@@ -46,7 +46,7 @@ app.controller('DashboardController', function ($rootScope, $http, moment) {
     this.getChartData = function (solars) {
         solars.forEach(function (solar) {
             var day = moment().startOf('day');
-            $http.get('http://192.168.1.70:1337/solar/generated/' + solar._id + '/' + day.format('X')).success(function (data, status, headers, config) {
+            $http.get('http://127.0.0.1:1337/solar/generated/' + solar._id + '/' + day.format('X')).success(function (data, status, headers, config) {
                 if (data) {
                     var newData = [];
                     for (var hour = 0; hour < 24; hour++) {

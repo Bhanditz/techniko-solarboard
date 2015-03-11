@@ -34,6 +34,7 @@
     "bootstrap": "~3.3.2",
     "highcharts-ng": "~0.0.7",
     "materialize": "~0.95.3",
-    "moment": "~2.9.0"
+    "moment": "~2.9.0",
+    "highcharts": "~4.1.4"
   }
 }

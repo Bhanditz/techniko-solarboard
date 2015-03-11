@@ -1,5 +1,6 @@
 app.controller('DashboardController', function ($rootScope, $http, moment) {
     var vm = this;
+    this.connectionError = false;
 
     $rootScope.pageTitle = "Overzicht";
 
@@ -33,15 +34,19 @@ app.controller('DashboardController', function ($rootScope, $http, moment) {
         series: []
     };
 
-    $http.get('http://127.0.0.1:1337/solar').success(function (data, status, headers, config) {
-        vm.outputData = data;
-        vm.getChartData(data);
-    });
+    $http.get('http://192.168.1.70:1337/solar')
+        .success(function (data, status, headers, config) {
+            vm.outputData = data;
+            vm.getChartData(data);
+        })
+        .error(function (data, status, headers, config) {
+            vm.connectionError = true;
+        });
 
     this.getChartData = function (solars) {
         solars.forEach(function (solar) {
             var day = moment().startOf('day');
-            $http.get('http://127.0.0.1:1337/solar/generated/' + solar._id + '/' + day.format('X')).success(function (data, status, headers, config) {
+            $http.get('http://192.168.1.70:1337/solar/generated/' + solar._id + '/' + day.format('X')).success(function (data, status, headers, config) {
                 if (data) {
                     var newData = [];
                     for (var hour = 0; hour < 24; hour++) {
@@ -71,6 +76,17 @@ app.controller('DashboardController', function ($rootScope, $http, moment) {
             vm.outputData.forEach(function (solar) {
                 var output = solar.output;
                 if (output) total += output;
+            });
+        }
+        return total;
+    };
+
+    this.getTotalYield = function () {
+        var total = 0;
+        if (vm.outputData) {
+            vm.outputData.forEach(function (solar) {
+                var tYield = solar.totalYield;
+                if (tYield) total += tYield;
             });
         }
         return total;

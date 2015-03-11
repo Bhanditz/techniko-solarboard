@@ -1,10 +1,10 @@
 <div ng-controller="DashboardController as dash">
     <div class='container'>
-        <div ng-show="dash.outputData">
+        <div ng-hide="dash.connectionError">
 
             <div class="card">
                 <div class="card-content">
-                    <span class="card-title black-text">Opwekking vandaag</span>
+                    <span class="card-title black-text">Dagopbrengst</span>
                     <div>
                         <highchart id="overviewoutput" config="dash.overviewGraph" class="span10">
                         </highchart>
@@ -27,8 +27,8 @@
                 <div class="col s6">
                     <div class="card">
                         <div class="card-content">
-                            <div class="center-align small-title">Opgewekt vandaag</div>
-                            <div class="center-align small-content"><strong>25,4</strong> <small>kWh</small>
+                            <div class="center-align small-title">Totale opbrengst</div>
+                            <div class="center-align small-content"><strong>{{dash.getTotalYield()}}</strong> <small>kWh</small>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <div ng-hide="dash.outputData" class="card">
+        <div ng-show="dash.connectionError" class="card">
             <div class="card-content red white-text">
                 <h4 class="center-align">Kan niet verbinden met de database.</h4>
             </div>

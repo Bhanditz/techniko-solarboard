@@ -23,11 +23,6 @@
         opacity: 1;
     }
 }
-
-html,
-body {
-    height: 100%;
-}
 /***************
     Nav List
 ***************/
@@ -63,7 +58,7 @@ ul.side-nav.fixed li.active {
 }
 
 ul.side-nav.fixed li a {
-    font-size: 14px;
+    font-size: 15px;
 }
 
 ul.side-nav.fixed ul.collapsible-accordion {
@@ -86,9 +81,10 @@ ul.side-nav.fixed:hover {
     font-weight: normal;
 }
 
-.main {
+body {
+    margin: 0;
+    padding: 0;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.05);
 }
 
 @media only screen and (max-width: 992px) {
@@ -97,6 +93,11 @@ ul.side-nav.fixed:hover {
     .footer {
         padding-left: 10px;
     }
+}
+
+.main {
+    background-color: rgba(0, 0, 0, 0.05);
+    height: 100%;
 }
 
 .logoimg {
@@ -124,3 +125,5 @@ nav.top-nav a.page-title {
     font-size: 40px;
     font-weight: 300;
 }
+
+.content {}

@@ -14,6 +14,15 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/:date', function(req, res, next) {
+    var r = new RegExp(req.params.date, "i");
+    Generated.find({
+        _id: r
+    }, function(err, data) {
+        res.json(data);
+    });
+});
+
 router.get('/:id/:date', function(req, res, next) {
     //For when the date is given in a human way (ISO), otherwise use Unix.
     var dateM = moment(req.params.date);

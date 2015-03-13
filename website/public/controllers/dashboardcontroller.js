@@ -1,8 +1,10 @@
-app.controller('DashboardController', function ($rootScope, $http, moment) {
+app.controller('DashboardController', function ($rootScope, $http, moment, solars, generated) {
     var vm = this;
     this.connectionError = false;
 
     $rootScope.pageTitle = "Overzicht";
+
+    this.outputData = solars.data;
 
     this.overviewGraph = {
         options: {
@@ -37,47 +39,36 @@ app.controller('DashboardController', function ($rootScope, $http, moment) {
         series: []
     };
 
-    $http.get('http://127.0.0.1:1337/solar')
-        .success(function (data, status, headers, config) {
-            vm.outputData = data;
-            vm.getChartData(data);
-        })
-        .error(function (data, status, headers, config) {
-            vm.connectionError = true;
-        });
-
-    this.getChartData = function (solars) {
-        solars.forEach(function (solar) {
-            var day = moment().startOf('day');
-            $http.get('http://127.0.0.1:1337/solar/generated/' + solar._id + '/' + day.format('X')).success(function (data, status, headers, config) {
-                if (data) {
-                    var current = moment();
-                    var newData = [];
-                    parentLoop:
+    generated.getToday().success(function (data, status, headers, config) {
+        if (data) {
+            data.forEach(function (solar) {
+                var day = moment().startOf('day');
+                var current = moment();
+                var total = 0;
+                var newData = [];
+                parentLoop:
                     for (var hour = 0; hour < 24; hour++) {
                         for (var minute = 0; minute < 12; minute++) {
                             //Check if minute has already passed
-                            if(minute * 5 > current.minutes() && hour == current.hours()) {
+                            if (minute * 5 > current.minutes() && hour == current.hours()) {
                                 break parentLoop;
                             }
-                            var generated = data[hour.toString()][minute];
+                            var generated = solar[hour.toString()][minute];
                             if (!generated) generated = 0;
-                            newData.push(generated);
+                            total += generated;
+                            newData.push(total);
                         }
                     }
 
-                    vm.overviewGraph.series.push({
-                        name: data._id.split(':')[0],
-                        data: newData,
-                        pointStart: Date.UTC(day.year(), day.month(), day.date()),
-                        pointInterval: 1000 * 60 * 5
-                    });
-                    console.log();
-                    console.log(vm.overviewGraph.series);
-                }
+                vm.overviewGraph.series.push({
+                    name: solar._id.split(':')[0],
+                    data: newData,
+                    pointStart: Date.UTC(day.year(), day.month(), day.date()),
+                    pointInterval: 1000 * 60 * 5
+                });
             });
-        });
-    };
+        }
+    });
 
     this.getTotalOutput = function () {
         var total = 0;

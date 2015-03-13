@@ -1,18 +1,22 @@
-var app = angular.module("solarboard", ["ngRoute", "ngAnimate", "highcharts-ng", "angularMoment"]);
+var app = angular.module("solarboard", ["ui.router", "ngAnimate", "highcharts-ng", "angularMoment"]);
 
-app.config(['$routeProvider', '$locationProvider',
-    function($routeProvider, $locationProvider) {
-        $routeProvider
+app.config(function ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise("/");
 
-        .when('/', {
+    $stateProvider
+        .state('dashboard', {
+            resolve: {
+                solars: function ($http) {
+                    return $http({
+                        method: 'GET',
+                        url: 'http://127.0.0.1:1337/solar'
+                    });
+                },
+
+                generated: "generated"
+            },
+            url: '/',
             templateUrl: '/partials/dashboard.html',
-            controller: 'DashboardController'
+            controller: 'DashboardController as dash'
         })
-            .when('/output', {
-                templateUrl: '/partials/export.html',
-                controller: 'GraphController'
-            });
-
-        $locationProvider.html5Mode(true);
-    }
-]);
+});

@@ -20,7 +20,10 @@ app.controller('DashboardController', function ($rootScope, $http, moment) {
 
             plotOptions: {
                 series: {
-                    stacking: 'normal'
+                    stacking: 'normal',
+                    marker: {
+                        enabled: false
+                    }
                 }
             },
             tooltip: {
@@ -48,9 +51,15 @@ app.controller('DashboardController', function ($rootScope, $http, moment) {
             var day = moment().startOf('day');
             $http.get('http://127.0.0.1:1337/solar/generated/' + solar._id + '/' + day.format('X')).success(function (data, status, headers, config) {
                 if (data) {
+                    var current = moment();
                     var newData = [];
+                    parentLoop:
                     for (var hour = 0; hour < 24; hour++) {
                         for (var minute = 0; minute < 12; minute++) {
+                            //Check if minute has already passed
+                            if(minute * 5 > current.minutes() && hour == current.hours()) {
+                                break parentLoop;
+                            }
                             var generated = data[hour.toString()][minute];
                             if (!generated) generated = 0;
                             newData.push(generated);

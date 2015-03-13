@@ -43,20 +43,6 @@ router.put('/', function(req, res, next) {
         return next(errormsg);
     }
 
-    //Every update of generation gets added to the totalYield of a solar panel
-    Solar.findById(req.body.solarid, function(err, result) {
-        if (!result || err) {
-            return next("Solar panel hasn't yet been added to the registry");
-        }
-        console.log(result);
-        result.totalYield += req.body.generated;
-
-        result.save(function(err) {
-            if (err)
-                return next(err);
-        });
-    });
-
     var date = moment(req.body.date);
     if (!date.isValid()) return next("Date given isn't valid");
     //round to the nearest 5 minutes
@@ -81,11 +67,26 @@ router.put('/', function(req, res, next) {
 
         var idHour = date.hour();
         result[idHour].set((date.minute() / 5), req.body.generated.toString());
-        console.log(result);
+        result.total = result.total + req.body.generated;
 
         result.save(function(err) {
             if (err)
                 return next(err);
+        });
+
+
+        //Every update of generation gets added to the totalYield of a solar panel
+        Solar.findById(req.body.solarid, function(err, result) {
+            if (!result || err) {
+                return next("Solar panel hasn't yet been added to the registry");
+            }
+            console.log(result);
+            result.totalYield = result.totalYield + req.body.generated;
+
+            result.save(function(err) {
+                if (err)
+                    return next(err);
+            });
         });
     });
 

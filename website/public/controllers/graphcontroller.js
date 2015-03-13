@@ -1,4 +1,5 @@
-app.controller("GraphController", function () {
+app.controller("GraphController", function($rootScope) {
+    $rootScope.pageTitle = "Opwekking";
     var vm = this;
     vm.chartConfig = {
         options: {
@@ -20,11 +21,11 @@ app.controller("GraphController", function () {
         loading: false
     };
 
-    this.populateCharts = function (data) {
+    this.populateCharts = function(data) {
         vm.chartConfig.series = [];
-        data.forEach(function (solar) {
+        data.forEach(function(solar) {
             var outputs = [];
-            solar.outputs.forEach(function (output) {
+            solar.outputs.forEach(function(output) {
                 outputs.push([new Date(output.date).getTime(), output.output]);
             });
             vm.chartConfig.series.push({

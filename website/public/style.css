@@ -124,3 +124,51 @@ nav.top-nav a.page-title {
 .description {
     max-width: 350px;
 }
+
+.weather-title {
+    background-color: #f47933;
+    color: white;
+    width: 150px;
+    font-size: 30px;
+    font-weight: 300;
+    margin-top: 20px;
+    padding-left: 20px;
+}
+
+.weather-subtitle {
+    color: dimgray;
+    font-size: 20px;
+    font-weight: 300;
+    margin-left: 20px;
+    margin-top: 5px
+}
+
+.weather-expectation {
+    background-color: #E8E8E8;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    padding-top: 20px;
+    padding-left: 10px;
+}
+
+.weather-expectation .title {
+    color: black;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.weather-card-content {
+    padding-left: 70px;
+}
+
+.temperature {
+    font-size: 100px;
+    font-weight: 200;
+    margin-left: 80px;
+}
+
+.nowrap {
+    white-space: nowrap;
+}

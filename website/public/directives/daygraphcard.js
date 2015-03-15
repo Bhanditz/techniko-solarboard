@@ -7,7 +7,7 @@ app.directive('ngDayGraph', function(generated, moment, weather) {
             ngDay: '@'
         },
         link: function(scope, iElement, iAttrs, ctrl) {
-            weather.today.success(function(data, err) {
+            weather.today().success(function(data, status, headers, config) {
                 console.log(data);
             });
 

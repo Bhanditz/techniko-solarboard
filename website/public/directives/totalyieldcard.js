@@ -15,7 +15,7 @@ app.directive('ngTotalYield', function ($interval, solars) {
                 return total / 1000;
             };
 
-            solars.success(function (data, error) {
+            solars.success(function (data) {
                 scope.yield = getTotalYield(data);
             });
         }

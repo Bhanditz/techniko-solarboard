@@ -1,4 +1,4 @@
-app.directive('ngDayGraph', function(generated, moment, weather) {
+app.directive('ngDayGraph', function (generated, moment, weather) {
     return {
         restrict: 'AE',
         templateUrl: './directives/templates/daygraphtemplate.html',
@@ -6,11 +6,7 @@ app.directive('ngDayGraph', function(generated, moment, weather) {
         scope: {
             ngDay: '@'
         },
-        link: function(scope, iElement, iAttrs, ctrl) {
-            weather.today().success(function(data, status, headers, config) {
-                console.log(data);
-            });
-
+        link: function (scope, iElement, iAttrs, ctrl) {
             scope.graph = {
                 options: {
                     xAxis: {
@@ -56,13 +52,13 @@ app.directive('ngDayGraph', function(generated, moment, weather) {
                 },
                 series: []
             };
-            generated.getDay(scope.ngDay).success(function(data, status, headers, config) {
+            generated.getDay(scope.ngDay).success(function (data, status, headers, config) {
                 if (data) {
                     if (!scope.ngDay) scope.ngDay = moment().startOf('day').format('X');
                     var day = moment.unix(scope.ngDay);
                     var today = moment().startOf('day');
                     var outputData = [];
-                    data.forEach(function(solar) {
+                    data.forEach(function (solar) {
                         var current = moment();
                         var total = 0;
                         var yieldData = [];

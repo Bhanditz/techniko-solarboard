@@ -1,68 +1,43 @@
 <div class='container'>
     <div ng-hide="dash.connectionError">
-
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title black-text">Dagopbrengst</span>
-                <div>
-                    <highchart id="overviewoutput" config="dash.overviewGraph" class="span10">
-                    </highchart>
-                </div>
-            </div>
+        <div class="row">
+            <ng-day-graph></ng-day-graph>
         </div>
-
 
         <div class="row">
             <div class="col s6">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="center-align small-title">Output</div>
-                        <div class="center-align small-content"><strong>{{dash.getTotalOutput()}}</strong> <small>Watt</small>
-                        </div>
-
-                    </div>
-                </div>
+                <ng-output></ng-output>
             </div>
             <div class="col s6">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="center-align small-title">Totale opbrengst</div>
-                        <div class="center-align small-content"><strong>{{dash.getTotalYield()}}</strong> <small>kWh</small>
-                        </div>
-                    </div>
-                </div>
+                <ng-total-yield></ng-total-yield>
             </div>
         </div>
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title black-text">
+        <div class="row">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title black-text">
                 Vermogen per paneelgroep
             </span>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Naam</th>
-                            <th>Output (Watt)</th>
-                            <th>Laatste meting</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="solar in dash.outputData">
-                            <td>
-                                <span class='title'><a href="" ng-click="dash.open(solar)">{{solar._id}}</a></span>
-                                <br> {{solar.description}}
-                            </td>
-                            <td>{{solar.output}}</td>
-                            <td>{{dash.getFromNow(solar.updated)}}</td>
-                        </tr>
-                        <tr>
-                            <td><b>Totaal</b>
-                            </td>
-                            <td>{{dash.getTotalOutput()}}</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Naam</th>
+                                <th>Output (Watt)</th>
+                                <th>Laatste meting</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="solar in dash.outputData">
+                                <td class="description">
+                                    <span class='title'><a href="" ng-click="dash.open(solar)">{{solar._id}}</a></span>
+                                    <p>{{solar.description}}</p>
+                                </td>
+                                <td>{{solar.output}}</td>
+                                <td>{{dash.getFromNow(solar.updated)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

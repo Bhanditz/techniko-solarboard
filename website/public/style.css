@@ -81,9 +81,10 @@ ul.side-nav.fixed:hover {
     font-weight: normal;
 }
 
+html,
 body {
-    margin: 0;
-    padding: 0;
+    height: 100%;
+    background-color: #fcfcfc;
 }
 
 @media only screen and (max-width: 992px) {
@@ -92,11 +93,6 @@ body {
     .footer {
         padding-left: 10px;
     }
-}
-
-.main {
-    background-color: rgba(0, 0, 0, 0.05);
-    height: 100vh;
 }
 
 .logoimg {
@@ -123,4 +119,8 @@ nav.top-nav a.page-title {
 .small-content {
     font-size: 40px;
     font-weight: 300;
+}
+
+.description {
+    max-width: 350px;
 }

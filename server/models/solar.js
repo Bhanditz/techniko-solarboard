@@ -11,6 +11,9 @@ var solarSchema = new mongoose.Schema({
         default: Date.now()
     },
 
-    totalYield: Number
+    totalYield: {
+        type: Number,
+        default: 0
+    }
 });
 module.exports = mongoose.model('Solar', solarSchema);

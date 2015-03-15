@@ -6,17 +6,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('dashboard', {
             resolve: {
-                solars: function ($http) {
-                    return $http({
-                        method: 'GET',
-                        url: 'http://127.0.0.1:1337/solar'
-                    });
-                },
-
+                solars: "solars",
                 generated: "generated"
             },
             url: '/',
             templateUrl: '/partials/dashboard.html',
             controller: 'DashboardController as dash'
         })
+
+    .state('yield', {
+        url: 'yield',
+        templateUrl: '/partials/yield.html'
+    });
 });

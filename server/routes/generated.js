@@ -14,10 +14,9 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.get('/:date', function(req, res, next) {
-    var r = new RegExp(req.params.date, "i");
+router.get('/date=:date', function(req, res, next) {
     Generated.find({
-        _id: r
+        date: new Date(req.params.date * 1000)
     }, function(err, data) {
         res.json(data);
     });
@@ -33,14 +32,20 @@ router.get('/:id/:date', function(req, res, next) {
     var id = req.params.id + ":" + date;
     Generated.findById(id, function(err, data) {
         if (err) return next(err);
-        console.log(id);
         res.json(data);
+    });
+});
+
+router.delete('/:id/:date', function(req, res, next) {
+    Generated.findByIdAndRemove(req.params.id + ":" + req.params.date, function(err, data) {
+        if (err) return next(err);
+        if (!data) return next("Couldn't find " + req.params.id + ":" + req.params.date);
+        res.send("Succesfully deleted " + req.params.id + ":" + req.params.date);
     });
 });
 
 router.put('/', function(req, res, next) {
     var missing = [];
-    if (!req.body.date) missing.push("date");
     if (!req.body.solarid) missing.push("solarid");
     if (!req.body.generated) missing.push("generated");
 
@@ -51,9 +56,15 @@ router.put('/', function(req, res, next) {
         });
         return next(errormsg);
     }
-
-    var date = moment(req.body.date);
+    var date;
+    if (req.body.date) {
+        date = moment(req.body.date);
+    } else {
+        date = moment();
+    }
     if (!date.isValid()) return next("Date given isn't valid");
+
+    date.startOf('minute');
     //round to the nearest 5 minutes
     var remainder = date.minute() % 5;
     var upremainder = 5 - remainder;
@@ -63,7 +74,6 @@ router.put('/', function(req, res, next) {
         date.add(upremainder, 'minutes');
     }
 
-    //ids are saved as 'solarid:dateofdayinunix'
     var idDate = moment(date);
     idDate.startOf('day');
 
@@ -71,12 +81,14 @@ router.put('/', function(req, res, next) {
         if (!result) {
             result = new Generated({
                 _id: req.body.solarid + ':' + idDate.format('X'),
+                date: idDate.toDate(),
+                solar: req.body.solarid
             });
         }
 
         var idHour = date.hour();
         result[idHour].set((date.minute() / 5), req.body.generated.toString());
-        result.total = result.total + req.body.generated;
+        result.total += parseInt(req.body.generated);
 
         result.save(function(err) {
             if (err)
@@ -90,7 +102,7 @@ router.put('/', function(req, res, next) {
                 return next("Solar panel hasn't yet been added to the registry");
             }
             console.log(result);
-            result.totalYield = result.totalYield + req.body.generated;
+            result.totalYield += parseInt(req.body.generated);
 
             result.save(function(err) {
                 if (err)

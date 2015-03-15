@@ -1,1 +1,1 @@
-node core.js
+nodemon core.js

@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
     _id: String,
-    day: Date,
+    solar: String,
+    date: Date,
     0: [Number],
     1: [Number],
     2: [Number],

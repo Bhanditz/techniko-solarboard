@@ -1,7 +1,7 @@
 app.directive('ngDayGraph', function (generated, moment, weather) {
     return {
         restrict: 'AE',
-        templateUrl: './directives/templates/daygraphtemplate.html',
+        templateUrl: './directives/daygraph/daygraphtemplate.html',
         require: '?ngDay',
         scope: {
             ngDay: '@'
@@ -35,6 +35,10 @@ app.directive('ngDayGraph', function (generated, moment, weather) {
                         }
                     }],
 
+                    chart: {
+                        zoomType: "xy"
+                    },
+
                     plotOptions: {
                         series: {
                             stacking: 'normal',
@@ -50,7 +54,8 @@ app.directive('ngDayGraph', function (generated, moment, weather) {
                 title: {
                     text: ""
                 },
-                series: []
+                series: [
+                ]
             };
             generated.getDay(scope.ngDay).success(function (data, status, headers, config) {
                 if (data) {
@@ -72,10 +77,10 @@ app.directive('ngDayGraph', function (generated, moment, weather) {
                                 var generated = solar[hour.toString()][minute];
                                 if (!generated) generated = 0;
                                 total += generated;
-                                yieldData.push(total / 1000);
+                                yieldData.push(Math.round((total / 1000) * 1000000) / 1000000);
 
                                 if (!outputData[i]) outputData[i] = 0;
-                                outputData[i] += Math.round((generated / (1 / 12)) * 100) / 100; //Get output by dividing with an hour (Wh / hour = W)
+                                outputData[i] += Math.round(generated * 3600 / 300 * 100) / 100; //Get output by dividing with an hour (Wh / hour = W)
                                 i++;
                             }
                         }

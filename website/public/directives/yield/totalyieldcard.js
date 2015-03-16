@@ -1,7 +1,7 @@
 app.directive('ngTotalYield', function ($interval, solars) {
     return {
         restrict: 'AE',
-        templateUrl: './directives/templates/totalyieldtemplate.html',
+        templateUrl: './directives/yield/totalyieldtemplate.html',
         scope: true,
         link: function (scope, iElement, iAttrs, ctrl) {
             var getTotalYield = function (data) {

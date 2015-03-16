@@ -1,13 +1,13 @@
-app.directive('ngOutput', function($interval, solars) {
+app.directive('ngOutput', function ($interval, solars) {
     return {
         restrict: 'AE',
-        templateUrl: './directives/templates/outputtemplate.html',
+        templateUrl: './directives/output/outputtemplate.html',
         scope: true,
-        link: function(scope, iElement, iAttrs, ctrl) {
-            var getTotalOutput = function(data) {
+        link: function (scope, iElement, iAttrs, ctrl) {
+            var getTotalOutput = function (data) {
                 var total = 0;
                 if (data) {
-                    data.forEach(function(solar) {
+                    data.forEach(function (solar) {
                         var output = solar.output;
                         if (output) total += output;
                     });
@@ -15,7 +15,7 @@ app.directive('ngOutput', function($interval, solars) {
                 return total;
             };
 
-            solars.success(function(data, error) {
+            solars.success(function (data, error) {
                 scope.output = getTotalOutput(data);
             });
         }

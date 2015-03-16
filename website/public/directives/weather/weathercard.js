@@ -1,7 +1,7 @@
 app.directive('ngWeather', function ($interval, moment, weather) {
     return {
         restrict: 'AE',
-        templateUrl: './directives/templates/weathertemplate.html',
+        templateUrl: './directives/weather/weathertemplate.html',
         scope: true,
         link: function (scope, element, iAttrs, ctrl) {
             var timeId;
@@ -15,7 +15,7 @@ app.directive('ngWeather', function ($interval, moment, weather) {
             }, 1000, 0, true);
 
             weather.current().success(function (data, status, headers, config) {
-                scope.temperature = Math.round(data.main.temp * 10) / 10;
+                scope.temperature = Math.round(data.main.temp);
                 scope.description = data.weather[0].description;
                 scope.sundown = moment.unix(data.sys.sunset).format('HH:mm');
                 scope.sunup = moment.unix(data.sys.sunrise).format('HH:mm');
@@ -29,7 +29,7 @@ app.directive('ngWeather', function ($interval, moment, weather) {
                     break;
                 case '02d':
                 case '02n':
-                    scope.weatherIcon = "mdi mdi-partlycloudy";
+                    scope.weatherIcon = "mdi mdi-weather-partlycloudy";
                     break;
                 case '03d':
                 case '03n':

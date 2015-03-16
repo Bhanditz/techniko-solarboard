@@ -1,0 +1,28 @@
+<ng-day-graph>
+</ng-day-graph>
+<div class='row'>
+    <div class="card yearpicker">
+        <div class="col s2 border-right arrowbox">
+            <a ng-click="move(1)">
+                <i class="center-align mdi-navigation-chevron-left arrow"></i>
+            </a>
+        </div>
+        <div class="col s8 ">
+            <div class="years">
+                <span ng-style="years[0].css">{{years[0].name}}</span>
+                <span ng-style="years[1].css">{{years[1].name}}</span>
+                <span ng-style="years[2].css">{{years[2].name}}</span>
+                <span ng-style="years[3].css">{{years[3].name}}</span>
+                <span ng-style="years[4].css">{{years[4].name}}</span>
+            </div>
+
+
+
+        </div>
+        <div class="col s2 border-left arrowbox">
+            <a ng-click="move(-1)">
+                <i class="center-align mdi-navigation-chevron-right arrow"></i>
+            </a>
+        </div>
+    </div>
+</div>

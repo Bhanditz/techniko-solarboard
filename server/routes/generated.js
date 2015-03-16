@@ -87,8 +87,9 @@ router.put('/', function(req, res, next) {
         }
 
         var idHour = date.hour();
-        result[idHour].set((date.minute() / 5), req.body.generated.toString());
-        result.total += parseInt(req.body.generated);
+        var generated = (req.body.generated / 300) * (1 / 12);
+        result[idHour].set((date.minute() / 5), generated);
+        result.total += (generated);
 
         result.save(function(err) {
             if (err)
@@ -102,7 +103,7 @@ router.put('/', function(req, res, next) {
                 return next("Solar panel hasn't yet been added to the registry");
             }
             console.log(result);
-            result.totalYield += parseInt(req.body.generated);
+            result.totalYield += parseInt(generated);
 
             result.save(function(err) {
                 if (err)

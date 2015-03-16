@@ -1,6 +1,6 @@
-app.factory('generated', function($http) {
+app.factory('generated', function ($http) {
 
-    var getDay = function(day) {
+    var getDay = function (day) {
         var date;
         if (!day) {
             var now = new Date();
@@ -9,7 +9,7 @@ app.factory('generated', function($http) {
         } else {
             date = day;
         }
-        return $http.get('http://127.0.0.1:1337/solar/generated/date=' + date, {
+        return $http.get('http://82.74.62.72:1337/solar/generated/date=' + date, {
             cache: true
         });
     };

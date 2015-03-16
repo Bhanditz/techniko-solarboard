@@ -16,6 +16,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 
     .state('yield', {
         url: 'yield',
-        templateUrl: '/partials/yield.html'
+        templateUrl: '/partials/yield.html',
+        controller: 'YieldController as yield'
     });
 });

@@ -47,7 +47,7 @@
             <div class="container">
                 <div class="card blue-grey darken-1">
                     <div class="card-content white-text">
-                        <h3 class="center-align">Connecting to the database...</h3>
+                        <h3 class="center-align">Verbinden met de database...</h3>
                     </div>
                     <div class="progress">
                         <div class="indeterminate"></div>
@@ -66,6 +66,8 @@
     <script type="text/javascript" src="/bower_components/angular-animate/angular-animate.min.js"></script>
 
     <script type="text/javascript" src="/bower_components/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="bower_components/highcharts/modules/no-data-to-display.js"></script>
+    <script type="text/javascript" src="bower_components/highcharts/modules/exporting.js"></script>
     <script type="text/javascript" src="/bower_components/highcharts-ng/dist/highcharts-ng.min.js"></script>
 
     <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
@@ -73,16 +75,20 @@
     <script type="text/javascript" src="/bower_components/angular-moment/angular-moment.min.js"></script>
 
     <script type="text/javascript" src="app.js"></script>
+
     <script type="application/javascript" src="services/solarservice.js"></script>
     <script type="text/javascript" src="services/generatedservice.js"></script>
     <script type="text/javascript" src="services/weatherservice.js"></script>
+
     <script type="text/javascript" src="/controllers/dashboardcontroller.js"></script>
     <script type="text/javascript" src="/controllers/menucontroller.js"></script>
-    <script type="text/javascript" src="/controllers/graphcontroller.js"></script>
-    <script type="text/javascript" src="/directives/currentoutputcard.js"></script>
-    <script type="text/javascript" src="/directives/totalyieldcard.js"></script>
-    <script type="text/javascript" src="/directives/daygraphcard.js"></script>
-    <script type="text/javascript" src="/directives/weathercard.js"></script>
+    <script type="text/javascript" src="/controllers/yieldcontroller.js"></script>
+
+    <script type="text/javascript" src="/directives/output/currentoutputcard.js"></script>
+    <script type="text/javascript" src="/directives/yield/totalyieldcard.js"></script>
+    <script type="text/javascript" src="/directives/daygraph/daygraphcard.js"></script>
+    <script type="text/javascript" src="/directives/weather/weathercard.js"></script>
+    <script type="text/javascript" src="/directives/graph/graphcard.js"></script>
 </body>
 
 </html>

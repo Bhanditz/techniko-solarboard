@@ -1,0 +1,46 @@
+.yearpicker {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.yearpicker .arrowbox {
+    position: relative;
+    background-color: white;
+    cursor: pointer;
+    cursor: hand;
+    margin-right: auto;
+    margin-left: auto;
+    transition: background-color 0.3s ease;
+    z-index: 1;
+}
+
+.yearpicker .arrowbox:hover {
+    transition: background-color 0.3s ease;
+    background-color: #E8E8E8;
+}
+
+.yearpicker .border-right {
+    border-right: 1px solid #ddd;
+}
+
+.yearpicker .border-left {
+    border-left: 1px solid #ddd;
+}
+
+.yearpicker .arrow {
+    font-size: 44px;
+    width: 100%;
+    display: inline-block;
+}
+
+.yearpicker .years {
+    text-align: center;
+    display: inline-block;
+}
+
+.years .year {
+    -webkit-transition: color 0.5s;
+    -o-transition: color 0.5s;
+    transition: color 0.5s;
+}

@@ -24,7 +24,7 @@
     }
 }
 /***************
-    Nav List
+Nav List
 ***************/
 
 ul.table-of-contents li {
@@ -246,107 +246,6 @@ nav.top-nav a.page-title {
     z-index: 2;
 }
 
-.daycard {
-    transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
-    width: 90%;
-    margin: 2px;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-.daycard:hover {
-    transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
-    background-color: #E8E8E8;
-    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    transform: translateY(-2px);
-}
-
 .daycard.a {
     color: #f47933;
-}
-
-.yearpicker {
-    width: 40%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.yearpicker .arrowbox {
-    position: relative;
-    background-color: white;
-    cursor: pointer;
-    cursor: hand;
-    transition: background-color 0.3s ease;
-    z-index: 1;
-}
-
-.yearpicker .arrowbox:hover {
-    transition: background-color 0.3s ease;
-    background-color: #E8E8E8;
-}
-
-.yearpicker .arrow {
-    font-size: 44px;
-    width: 100%;
-    display: inline-block;
-}
-
-.yearpicker .years {
-    text-align: center;
-    display: inline-block;
-}
-
-.yearpicker .year {
-    position: absolute;
-    font-size: 44px;
-    bottom: 0;
-    top: 0;
-    right: 0;
-    left: 0;
-}
-
-.yearpicker .frontyear {
-    font-weight: 300;
-}
-
-.yearpicker .bgyear {
-    color: gray;
-    font-weight: 200;
-    z-index: 0;
-}
-
-.yearpicker .invisyear {
-    opacity: 0;
-}
-
-.yearpicker .outerrightyear {
-    transition: transform 0.8s ease;
-    transform: translateX(300px);
-}
-
-.yearpicker .rightyear {
-    transition: transform 0.8s ease;
-    transform: translateX(150px);
-}
-
-.yearpicker .centeryear {
-    transition: transform 0.8s ease;
-}
-
-.yearpicker .leftyear {
-    transition: transform 0.8s ease;
-    transform: translateX(-150px);
-}
-
-.yearpicker .outerleftyear {
-    transition: transform 0.8s ease;
-    transform: translateX(-300px);
-}
-
-.yearpicker .border-right {
-    border-right: 1px solid #ddd;
-}
-
-.yearpicker .border-left {
-    border-left: 1px solid #ddd;
 }

@@ -1,1 +1,1 @@
-node core
+node core --development

@@ -1,4 +1,4 @@
-app.directive('ngDayGraph', function (generated, moment, weather) {
+app.directive('ngDayGraph', function(generated, moment, weather) {
     return {
         restrict: 'AE',
         templateUrl: './directives/daygraph/daygraphtemplate.html',
@@ -6,7 +6,7 @@ app.directive('ngDayGraph', function (generated, moment, weather) {
         scope: {
             ngDay: '@'
         },
-        link: function (scope, iElement, iAttrs, ctrl) {
+        link: function(scope, iElement, iAttrs, ctrl) {
             scope.graph = {
                 options: {
                     xAxis: {
@@ -54,16 +54,15 @@ app.directive('ngDayGraph', function (generated, moment, weather) {
                 title: {
                     text: ""
                 },
-                series: [
-                ]
+                series: []
             };
-            generated.getDay(scope.ngDay).success(function (data, status, headers, config) {
+            generated.getDay(scope.ngDay).success(function(data, status, headers, config) {
                 if (data) {
                     if (!scope.ngDay) scope.ngDay = moment().startOf('day').format('X');
                     var day = moment.unix(scope.ngDay);
                     var today = moment().startOf('day');
                     var outputData = [];
-                    data.forEach(function (solar) {
+                    data.forEach(function(solar) {
                         var current = moment();
                         var total = 0;
                         var yieldData = [];
@@ -98,17 +97,19 @@ app.directive('ngDayGraph', function (generated, moment, weather) {
                         });
                     });
 
-                    scope.graph.series.push({
-                        name: "Output",
-                        type: "spline",
-                        data: outputData,
-                        tooltip: {
-                            valueSuffix: " W"
-                        },
-                        yAxis: 1,
-                        pointStart: Date.UTC(day.year(), day.month(), day.date()),
-                        pointInterval: 1000 * 60 * 5
-                    });
+                    if (outputData.length !== 0) {
+                        scope.graph.series.push({
+                            name: "Output",
+                            type: "spline",
+                            data: outputData,
+                            tooltip: {
+                                valueSuffix: " W"
+                            },
+                            yAxis: 1,
+                            pointStart: Date.UTC(day.year(), day.month(), day.date()),
+                            pointInterval: 1000 * 60 * 5
+                        });
+                    }
                 }
             });
         }

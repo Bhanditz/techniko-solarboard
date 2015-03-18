@@ -1,6 +1,6 @@
 var app = angular.module("solarboard", ["ui.router", "ngAnimate", "highcharts-ng", "angularMoment"]);
 
-app.config(function ($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/");
 
     $stateProvider
@@ -15,7 +15,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
 
     .state('yield', {
-        url: 'yield',
+        url: '/yield',
         templateUrl: '/partials/yield.html',
         controller: 'YieldController as yield'
     });

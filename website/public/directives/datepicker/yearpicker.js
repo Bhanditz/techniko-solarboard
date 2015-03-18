@@ -1,10 +1,10 @@
-app.directive('ngYearPicker', function(moment) {
+app.directive('ngYearPicker', function(moment, datepicker) {
     return {
         restrict: 'AE',
-        templateUrl: './directives/graph/yearpicker.html',
+        templateUrl: './directives/datepicker/yearpicker.html',
         scope: true,
         link: function(scope, iElement, iAttrs, ctrl) {
-            scope.year = parseInt(moment().format('YYYY'));
+            datepicker.year = parseInt(moment().format('YYYY'));
             scope.animating = false;
 
             var baseYearCSS = {
@@ -28,8 +28,7 @@ app.directive('ngYearPicker', function(moment) {
             var setupYears = function() {
                 scope.years = [];
                 for (var i = 0; i < 5; i++) {
-                    scope.years.push(scope.year + (-2 + i));
-
+                    scope.years.push(datepicker.year + (-2 + i));
                 }
                 $('.year').each(function(id, element) {
                     if (id === 2) {
@@ -48,7 +47,7 @@ app.directive('ngYearPicker', function(moment) {
             scope.move = function(direction) {
                 if (!scope.animating) {
                     scope.animating = true;
-                    scope.year -= direction;
+                    datepicker.year -= direction;
                     var max = 4;
 
                     $('.year').each(function(id, element) {
@@ -70,17 +69,17 @@ app.directive('ngYearPicker', function(moment) {
                                 pos = max;
                                 $(this).data('position', pos);
                                 $(this).css('left', 300 * (-2 + pos));
-                                scope.years[id] = scope.year + 2;
+                                scope.years[id] = datepicker.year + 2;
                             } else if (pos > max) {
                                 pos = 0;
                                 $(this).data('position', pos);
                                 $(this).css('left', 300 * (-2 + pos));
-                                scope.years[id] = scope.year - 2;
+                                scope.years[id] = datepicker.year - 2;
                             }
                         });
                     });
-}
-};
-}
-};
+                }
+            };
+        }
+    };
 });

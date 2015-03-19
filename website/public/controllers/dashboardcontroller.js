@@ -1,4 +1,4 @@
-app.controller('DashboardController', function ($rootScope, $http, moment, solars) {
+app.controller('DashboardController', function($rootScope, $scope, $http, moment, solars) {
     var vm = this;
     this.connectionError = false;
 
@@ -6,7 +6,7 @@ app.controller('DashboardController', function ($rootScope, $http, moment, solar
 
     this.outputData = solars.data;
 
-    this.getFromNow = function (date) {
+    this.getFromNow = function(date) {
         return moment(date).fromNow();
     };
 });

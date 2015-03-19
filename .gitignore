@@ -3,3 +3,7 @@ node_modules/
 bower_components/
 npm-debug.log
 db/
+journal/
+*.0
+*.ns
+mongod.lock

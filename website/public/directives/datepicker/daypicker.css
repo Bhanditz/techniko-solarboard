@@ -1,6 +1,8 @@
 .days {
 	position: relative;
-	margin: 0 auto;
+	margin-right: auto;
+	margin-left: auto;
+	max-width: 900px;
 }
 
 .animate-show {
@@ -18,9 +20,9 @@
 }
 
 .days .daybox {
-	-webkit-transition: 0.3s ease background-color;
-	-o-transition: 0.3s ease background-color;
-	transition: 0.3s ease background-color;
+	-webkit-transition: 0.3s ease all;
+	-o-transition: 0.3s ease  all;
+	transition: 0.3s ease all;
 	background-color: white;
 	height: 50px;
 	width: 14%;

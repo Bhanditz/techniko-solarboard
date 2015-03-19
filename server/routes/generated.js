@@ -22,6 +22,20 @@ router.get('/date=:date', function(req, res, next) {
     });
 });
 
+router.get('/date_start=:datestart&date_end=:dateend', function(req, res, next) {
+    var startDate = moment.unix(req.params.datestart).toDate();
+    var endDate = moment.unix(req.params.dateend).toDate();
+    Generated.find({
+        date: {
+            $gte: startDate,
+            $lt: endDate
+        }
+    }, function(err, data) {
+        if (err) return next(err);
+        res.json(data);
+    });
+});
+
 router.get('/:id/:date', function(req, res, next) {
     //For when the date is given in a human way (ISO), otherwise use Unix.
     var dateM = moment(req.params.date);

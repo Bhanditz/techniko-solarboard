@@ -1,6 +1,13 @@
 <div class="container">
 	<div class="row">
-		<ng-graph></ng-graph>
+		<ng-graph graph-date="graphDate" title="{{title}}">
 	</div>
-	{{yield.datepicker.day}} {{yield.datepicker.month}} {{yield.datepicker.year}}
+	<div class='row'>
+		<ng-year-picker>
+	</div>
+	<div class='row'>
+		<ng-month-picker>
+	</div>
+	<ng-day-picker>
+</div>
 </div>

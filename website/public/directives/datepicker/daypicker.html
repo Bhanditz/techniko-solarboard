@@ -1,27 +1,23 @@
 <link rel="stylesheet" type="text/css" href="directives/datepicker/daypicker.css">
 <div class="animate-show" ng-show="datepicker.month !== ''">
-	<div class='row'>
-		<div class="col s8 offset-s2">
-			<div class="days">
-				<table>
-					<thead>
-						<tr>
-							<th class="weekdaybox" ng-repeat='weekday in weekdays'>{{weekday|uppercase}}</th>
-						</tr>
-					</thead>
-					<tbody>			
-						<tr ng-repeat='week in days'>
-							<td ng-repeat='day in week track by $index' class='daybox' 
-							ng-class="{
-							'inactive' : isInactiveDay($parent.$index * 7 + $index),
-							'selectable': !isInactiveDay($parent.$index * 7 + $index),
-							'active' : isActiveDay(day) && !isInactiveDay($parent.$index * 7 + $index),
-							'waves-effect': !isInactiveDay($parent.$index * 7 + $index)}"
-							ng-click="selectDay(($parent.$index * 7 + $index), day)">{{day}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
+	<div class="days">
+		<table>
+			<thead>
+				<tr>
+					<th class="weekdaybox" ng-repeat='weekday in weekdays'>{{weekday|uppercase}}</th>
+				</tr>
+			</thead>
+			<tbody>			
+				<tr ng-repeat='week in days'>
+					<td ng-repeat='day in week track by $index' class='daybox' 
+					ng-class="{
+					'inactive' : isInactiveDay($parent.$index * 7 + $index),
+					'selectable': !isInactiveDay($parent.$index * 7 + $index),
+					'active' : isActiveDay(day) && !isInactiveDay($parent.$index * 7 + $index),
+					'waves-effect': !isInactiveDay($parent.$index * 7 + $index)}"
+					ng-click="selectDay(($parent.$index * 7 + $index), day)">{{day}}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>

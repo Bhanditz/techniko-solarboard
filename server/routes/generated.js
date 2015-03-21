@@ -22,9 +22,13 @@ router.get('/date=:date', function(req, res, next) {
     });
 });
 
-router.get('/date_start=:datestart&date_end=:dateend', function(req, res, next) {
-    var startDate = moment.unix(req.params.datestart).toDate();
-    var endDate = moment.unix(req.params.dateend).toDate();
+/**
+ * Query for a date range (optional paramater to save bandwidth)
+ * @return given date range
+ */
+router.get('/date_start=:datestart&date_end=:dateend/:totalonly?', function(req, res, next) {
+    var startDate = moment.utc(req.params.datestart, 'X').toDate();
+    var endDate = moment.utc(req.params.dateend, 'X').toDate();
     Generated.find({
         date: {
             $gte: startDate,
@@ -32,18 +36,26 @@ router.get('/date_start=:datestart&date_end=:dateend', function(req, res, next) 
         }
     }, function(err, data) {
         if (err) return next(err);
-        res.json(data);
+        var sendData = [];
+
+        //Option to send only total to save bandwidth
+        if (req.params.totalonly) {
+            data.forEach(function(day) {
+                sendData.push({
+                    date: day.date,
+                    total: day.total
+                });
+            });
+        } else {
+            sendData = data;
+        }
+        res.json(sendData);
     });
 });
 
 router.get('/:id/:date', function(req, res, next) {
-    //For when the date is given in a human way (ISO), otherwise use Unix.
-    var dateM = moment(req.params.date);
-    var date = "";
-    if (!dateM.isValid()) date = req.params.date;
-    else date = dateM.startOf('day').format('X');
-
-    var id = req.params.id + ":" + date;
+    var date = moment.utc(req.params.date, 'X');
+    var id = req.params.id + ":" + date.format('X');
     Generated.findById(id, function(err, data) {
         if (err) return next(err);
         res.json(data);
@@ -72,9 +84,9 @@ router.put('/', function(req, res, next) {
     }
     var date;
     if (req.body.date) {
-        date = moment(req.body.date);
+        date = moment.utc(req.body.date, 'X');
     } else {
-        date = moment();
+        date = moment.utc();
     }
     if (!date.isValid()) return next("Date given isn't valid");
 
@@ -88,7 +100,7 @@ router.put('/', function(req, res, next) {
         date.add(upremainder, 'minutes');
     }
 
-    var idDate = moment(date);
+    var idDate = moment.utc(date);
     idDate.startOf('day');
 
     Generated.findById(req.body.solarid + ':' + idDate.format('X'), function(err, result) {

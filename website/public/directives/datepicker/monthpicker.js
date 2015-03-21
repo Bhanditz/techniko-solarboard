@@ -1,6 +1,7 @@
 app.directive('ngMonthPicker', function(moment, datepicker) {
     return {
         restrict: 'AE',
+        transclude: true,
         templateUrl: './directives/datepicker/monthpicker.html',
         scope: true,
         link: function(scope, iElement, iAttrs, ctrl) {

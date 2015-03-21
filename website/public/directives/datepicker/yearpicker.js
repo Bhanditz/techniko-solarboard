@@ -1,6 +1,7 @@
 app.directive('ngYearPicker', function(moment, datepicker) {
     return {
         restrict: 'AE',
+        transclude: true,
         templateUrl: './directives/datepicker/yearpicker.html',
         scope: true,
         link: function(scope, iElement, iAttrs, ctrl) {

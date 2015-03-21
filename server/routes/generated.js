@@ -33,8 +33,7 @@ function processMonth(solar, date, generated, oldValue) {
                 total: generated
             });
         } else {
-            if (!oldValue)
-                oldValue = 0;
+            oldValue = oldValue ? oldValue : 0;
             result.total += generated - oldValue;
         }
 

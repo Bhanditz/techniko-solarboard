@@ -1,6 +1,7 @@
 app.factory('generated', function($http, $q, moment) {
+    var url = 'http://82.74.62.72:1337/';
+
     var getDay = function(day, force) {
-        console.log(monthCache);
         var date;
         if (!day) {
             var now = new Date();
@@ -30,7 +31,7 @@ app.factory('generated', function($http, $q, moment) {
             }
         }
 
-        return $http.get('http://82.74.62.72:1337/solar/generated/date=' + date, {
+        return $http.get(url + 'solar/generated/date=' + date, {
             cache: true
         });
     };
@@ -45,12 +46,7 @@ app.factory('generated', function($http, $q, moment) {
      * @param  if this is true only date + output of every day will be sent, saves bandwidth
      */
     var getMonth = function(month, totalOnly) {
-        var date;
-        if (!month) {
-            date = moment.utc();
-        } else {
-            date = moment.utc(month, 'X');
-        }
+        var date = month ? moment.utc(month, 'X') : moment.utc();
         date.startOf('month');
 
         var totalOnlyQuery = '';
@@ -58,7 +54,7 @@ app.factory('generated', function($http, $q, moment) {
             totalOnlyQuery = '/true';
         }
 
-        var promise = $http.get('http://82.74.62.72:1337/solar/generated/date_start=' + date.format('X') +
+        var promise = $http.get(url + 'solar/generated/date_start=' + date.format('X') +
             "&date_end=" + date.add(1, 'months').format('X') + totalOnlyQuery, {
                 cache: true
             });
@@ -75,8 +71,18 @@ app.factory('generated', function($http, $q, moment) {
         return promise;
     };
 
+    function getYear(year) {
+        var date = year ? moment.utc(year, 'X') : moment.utc();
+        date.startOf('year');
+
+        return $http.get(url + 'solar/generated/year/' + date.format('X'), {
+            cache: true
+        });
+    }
+
     return {
         getDay: getDay,
-        getMonth: getMonth
+        getMonth: getMonth,
+        getYear: getYear
     };
 });

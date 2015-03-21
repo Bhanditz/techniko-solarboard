@@ -9,38 +9,20 @@ app.directive('ngGraph', function($q, generated, moment, weather, datepicker) {
         link: function(scope, iElement, attr, ctrl) {
             scope.graph = {
                 options: {
-                    xAxis: {
-                        type: 'datetime',
-                        title: {
-                            text: "Tijdstip"
-                        }
-                    },
+                    xAxis: {},
 
-                    yAxis: [{
-                        labels: {
-                            format: "{value} kWh"
-                        },
-                        floor: 0,
-                        title: {
-                            text: "Opgewekt"
-                        }
-                    }, {
-                        labels: {
-                            format: "{value} W"
-                        },
-                        floor: 0,
-                        opposite: true,
-                        title: {
-                            text: "Output"
-                        }
-                    }],
+                    yAxis: {},
 
                     chart: {
                         zoomType: "xy",
                         events: {
                             drilldown: function(e) {
                                 scope.$apply(function() {
-                                    datepicker.day = moment.utc(e.point.x / 1000, 'X').date();
+                                    if (datepicker.month) {
+                                        datepicker.day = moment.utc(e.point.x / 1000, 'X').date();
+                                    } else if (datepicker.year) {
+                                        datepicker.month = moment.utc(e.point.x / 1000, 'X').format('MMMM');
+                                    }
                                 });
                             }
                         }
@@ -75,7 +57,7 @@ app.directive('ngGraph', function($q, generated, moment, weather, datepicker) {
             var processDate = function(date) {
                 switch (date.type) {
                     case 'year':
-                        //TODO
+                        addYear(date.date);
                         break;
                     case 'month':
                         addMonth(date.date);
@@ -87,8 +69,39 @@ app.directive('ngGraph', function($q, generated, moment, weather, datepicker) {
             };
 
             var addDay = function(unixDay, series) {
+                scope.graph.options.xAxis = [];
+                scope.graph.options.xAxis.push({
+                    type: 'datetime',
+                    title: {
+                        text: "Tijdstip"
+                    }
+                });
+
+                scope.graph.options.yAxis = [];
+                scope.graph.options.yAxis.push({
+                    labels: {
+                        format: "{value} kWh"
+                    },
+                    floor: 0,
+                    title: {
+                        text: "Opgewekt"
+                    }
+                });
+                scope.graph.options.yAxis.push({
+                    labels: {
+                        format: "{value} W"
+                    },
+                    floor: 0,
+                    opposite: true,
+                    title: {
+                        text: "Output"
+                    }
+                });
+
                 generated.getDay(unixDay).then(function(data) {
                     if (data) {
+
+
                         var day = moment(unixDay, 'X').startOf('day');
                         var unixDate = Date.UTC(day.year(), day.month(), day.date());
                         var outputData = [];
@@ -144,44 +157,99 @@ app.directive('ngGraph', function($q, generated, moment, weather, datepicker) {
                 });
             };
 
-            var addMonth = function(month) {
-                generated.getMonth(month, true).then(function(data) {
-                    var date = moment.utc(month, 'X').startOf('month');
-                    if (data) {
-                        for (var i = 0; i < date.daysInMonth(); i++) {
-                            var generatedData = [];
-                            if (data.data[i]) {
-                                var unixDate = new Date(data.data[i].date).getTime();
-                                generatedData.push({
-                                    x: unixDate,
-                                    y: data.data[i].total,
-                                    drilldown: true
-                                });
-
-
-                                var solarSeries = getMonthFromSeries(scope.graph.series, data.data[i].solar);
-
-                                if (solarSeries) {
-                                    solarSeries.data = solarSeries.data.concat(generatedData);
-                                } else {
-                                    scope.graph.series.push({
-                                        name: data.data[i].solar,
-                                        type: "column",
-                                        data: generatedData
-                                    });
-                                }
-                            }
-                        }
+            function addMonth(month) {
+                scope.graph.options.xAxis = [];
+                scope.graph.options.xAxis.push({
+                    type: 'datetime',
+                    dateTimeLabelFormats: {
+                        day: '%e %b'
+                    },
+                    title: {
+                        text: "Datum"
                     }
                 });
-            };
 
-            var getMonthFromSeries = function(series, name) {
+                scope.graph.options.yAxis = [];
+                scope.graph.options.yAxis.push({
+                    labels: {
+                        format: "{value} kWh"
+                    },
+                    floor: 0,
+                    title: {
+                        text: "Opgewekt"
+                    }
+                });
+                generated.getMonth(month, true).then(function(data) {
+                    if (data) {
+                        processData(data);
+                    }
+                });
+            }
+
+            function addYear(year) {
+                scope.graph.options.xAxis = [];
+                scope.graph.options.xAxis.push({
+                    type: 'datetime',
+                    dateTimeLabelFormats: {
+                        day: '%B',
+                        month: '%B'
+                    },
+                    title: {
+                        text: "Maand"
+                    }
+                });
+
+                scope.graph.options.yAxis = [];
+                scope.graph.options.yAxis.push({
+                    labels: {
+                        format: "{value} kWh"
+                    },
+                    floor: 0,
+                    title: {
+                        text: "Opgewekt"
+                    }
+                });
+                generated.getYear(year).then(function(data) {
+                    if (data) {
+                        processData(data);
+                    }
+                });
+            }
+
+            function processData(data) {
+                for (var i = 0; i < data.data.length; i++) {
+                    var generatedData = [];
+                    if (data.data[i]) {
+                        var unixDate = new Date(data.data[i].date).getTime();
+                        generatedData.push({
+                            x: unixDate,
+                            y: data.data[i].total,
+                            drilldown: true
+                        });
+
+
+                        var solarSeries = getSolarFromSeries(scope.graph.series, data.data[i].solar);
+
+                        if (solarSeries) {
+                            solarSeries.data = solarSeries.data.concat(generatedData);
+                        } else {
+                            scope.graph.series.push({
+                                name: data.data[i].solar,
+                                type: "column",
+                                data: generatedData
+                            });
+                        }
+                    }
+                }
+            }
+
+            var getSolarFromSeries = function(series, name) {
                 for (var i = 0; i < series.length; i++) {
                     if (series[i].name == name)
                         return series[i];
                 }
             };
+
         }
     };
 });

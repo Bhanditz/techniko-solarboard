@@ -49,6 +49,12 @@ router.put('/:id', function(req, res, next) {
             solar.updated = Date.now();
         }
 
+        if (req.body.description)
+            solar.description = req.body.description;
+
+        if (req.body.peak)
+            solar.peak = req.body.peak;
+
         solar.save(function(err) {
             if (err) return next(err);
         });

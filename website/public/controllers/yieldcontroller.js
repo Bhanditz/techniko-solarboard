@@ -4,6 +4,7 @@ app.controller("YieldController", function($rootScope, $scope, datepicker, momen
     this.datepicker = datepicker;
 
 
+
     $scope.$watchCollection(function() {
         return datepicker;
     }, function(newValue) {
@@ -13,9 +14,8 @@ app.controller("YieldController", function($rootScope, $scope, datepicker, momen
         var formatDay = datepicker.day ? 'DD ' : '';
 
         $scope.title = date.format(formatDay + formatMonth + formatYear);
-        if (newValue) {
-            processDate(newValue);
-        }
+        processDate(newValue);
+        setButtonTitle(newValue);
     });
 
     var processDate = function(datepicker) {
@@ -30,11 +30,31 @@ app.controller("YieldController", function($rootScope, $scope, datepicker, momen
                 date: datepicker.getDate().startOf('month').format('X'),
                 type: 'month'
             };
-        } else if (datepicker.day) {
+        } else if (datepicker.year) {
             $scope.graphDate = {
                 date: datepicker.getDate().startOf('year').format('X'),
                 type: 'year'
             };
+        }
+    };
+
+    var setButtonTitle = function(date) {
+        if (date.day) {
+            $scope.buttonVisible = true;
+            $scope.buttonTitle = 'Maandoverzicht';
+        } else if (date.month) {
+            $scope.buttonVisible = true;
+            $scope.buttonTitle = 'Jaaroverzicht';
+        } else if (date.year) {
+            $scope.buttonVisible = false;
+        }
+    };
+
+    this.processButtonClick = function() {
+        if (datepicker.day) {
+            datepicker.day = '';
+        } else if (datepicker.month) {
+            datepicker.month = '';
         }
     };
 });

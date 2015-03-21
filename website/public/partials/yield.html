@@ -1,13 +1,13 @@
 <div class="container">
+	<div class="row graphWrapper">
+		<ng-graph graph-date="graphDate" title="{{title | capitalize}}"></ng-graph>
+		<a class='btn backbutton waves-effect' ng-show="buttonVisible" ng-click='yield.processButtonClick()'>{{buttonTitle}}</a>
+
+		<ng-year-picker></ng-year-picker>
+		<ng-month-picker></ng-month-picker>
+	</div>
 	<div class="row">
-		<ng-graph graph-date="graphDate" title="{{title}}">
+		<ng-day-picker></ng-day-picker>
 	</div>
-	<div class='row'>
-		<ng-year-picker>
-	</div>
-	<div class='row'>
-		<ng-month-picker>
-	</div>
-	<ng-day-picker>
 </div>
 </div>

@@ -5,13 +5,82 @@ var moment = require('moment');
 
 var mongoose = require('mongoose');
 var Generated = require('../models/generated.js');
+var GeneratedMonth = require('../models/generatedmonth.js');
 var Solar = require('../models/solar.js');
+
+var smallifyData = function(data) {
+    var sendData = [];
+    data.forEach(function(day) {
+        sendData.push({
+            date: day.date,
+            solar: day.solar,
+            total: day.total
+        });
+    });
+    return sendData;
+};
+
+function processMonth(solar, date, generated, oldValue) {
+    var momentDate = moment.utc(date, 'X');
+    var unixDate = momentDate.startOf('month').format('X');
+    var id = solar + ':' + unixDate + ':month';
+    GeneratedMonth.findById(id, function(err, result) {
+        if (!result) {
+            result = new GeneratedMonth({
+                _id: id,
+                solar: solar,
+                date: momentDate.toDate(),
+                total: generated
+            });
+        } else {
+            if (!oldValue)
+                oldValue = 0;
+            result.total += generated - oldValue;
+        }
+
+        result.save(function(err) {
+            if (err)
+                return next(err);
+        });
+
+    });
+}
 
 router.get('/', function(req, res, next) {
     Generated.find(function(err, data) {
         if (err) return next(err);
         res.json(data);
     });
+});
+
+router.get('/month/:date', function(req, res, next) {
+    var monthDate = moment.utc(req.params.date, 'X').startOf('month');
+    if (monthDate.isValid()) {
+        Generated.find({
+            date: {
+                $gte: monthDate.toDate(),
+                $lt: moment(monthDate).add(1, 'months').toDate()
+            }
+        }, function(err, data) {
+            if (err) return next(err);
+            res.json(smallifyData(data));
+        });
+    }
+});
+
+router.get('/year/:date', function(req, res, next) {
+    var yearDate = moment.utc(req.params.date, 'X').startOf('year');
+    if (yearDate.isValid) {
+        GeneratedMonth.find({
+            date: {
+                $gte: yearDate.toDate(),
+                $lt: moment(yearDate).add(1, 'years').toDate()
+            }
+        }, function(err, data) {
+            if (err) return next(err);
+            res.json(data);
+        });
+    }
 });
 
 router.get('/date=:date', function(req, res, next) {
@@ -40,12 +109,7 @@ router.get('/date_start=:datestart&date_end=:dateend/:totalonly?', function(req,
 
         //Option to send only total to save bandwidth
         if (req.params.totalonly) {
-            data.forEach(function(day) {
-                sendData.push({
-                    date: day.date,
-                    total: day.total
-                });
-            });
+            sendData = smallifyData(data);
         } else {
             sendData = data;
         }
@@ -86,7 +150,7 @@ router.put('/', function(req, res, next) {
     if (req.body.date) {
         date = moment.utc(req.body.date, 'X');
     } else {
-        date = moment.utc();
+        date = moment();
     }
     if (!date.isValid()) return next("Date given isn't valid");
 
@@ -114,8 +178,14 @@ router.put('/', function(req, res, next) {
 
         var idHour = date.hour();
         var generated = (req.body.generated / 300) * (1 / 12);
+
+        //If there already was a value this can't be added to the total, so calculate net
+        var oldValue = result[idHour][(date.minute() / 5)];
+        oldValue = oldValue ? oldValue : 0;
+        var netGenerated = (generated - oldValue);
+        result.total += netGenerated;
+
         result[idHour].set((date.minute() / 5), generated);
-        result.total += (generated);
 
         result.save(function(err) {
             if (err)
@@ -123,13 +193,15 @@ router.put('/', function(req, res, next) {
         });
 
 
+        processMonth(req.body.solarid, idDate.format('X'), generated, oldValue);
+
+
         //Every update of generation gets added to the totalYield of a solar panel
         Solar.findById(req.body.solarid, function(err, result) {
             if (!result || err) {
                 return next("Solar panel hasn't yet been added to the registry");
             }
-            console.log(result);
-            result.totalYield += parseInt(generated);
+            result.totalYield += parseInt(netGenerated);
 
             result.save(function(err) {
                 if (err)

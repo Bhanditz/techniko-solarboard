@@ -5,10 +5,6 @@ app.controller('DashboardController', function($rootScope, $scope, $http, moment
     $rootScope.pageTitle = "Overzicht";
 
     var now = new Date();
-    $scope.graphDate = {
-        type: 'day',
-        date: Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 1000
-    };
 
     this.outputData = solars.data;
 

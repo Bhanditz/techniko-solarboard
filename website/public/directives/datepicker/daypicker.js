@@ -5,7 +5,7 @@ app.directive('ngDayPicker', function(moment, datepicker) {
         scope: true,
         link: function(scope, iElement, iAttrs, ctrl) {
             scope.datepicker = datepicker;
-            scope.weekdays = moment.weekdays();
+            scope.weekdays = window.innerWidth < 600 ? moment.weekdaysShort() : moment.weekdays();
             //Switch the first element with the last, otherwise week would begin with sunday
             var tempDay = scope.weekdays[0];
             scope.weekdays.splice(0, 1);
@@ -67,7 +67,6 @@ app.directive('ngDayPicker', function(moment, datepicker) {
 
             //Special function so the window can be scrolled up when called
             this.closeDay = function() {
-                console.log("Closing");
                 datepicker.day = "";
 
                 $("html, body").animate({

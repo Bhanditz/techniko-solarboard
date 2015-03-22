@@ -1,0 +1,170 @@
+
+.description {
+    max-width: 350px;
+}
+
+.weather-title {
+    background-color: #f47933;
+    color: white;
+    font-size: 30px;
+    font-weight: 300;
+    padding-left: 20px;
+    margin-top: 20px;
+    width: 175px
+}
+
+.weather-subtitle {
+    color: dimgray;
+    font-size: 18px;
+    font-weight: 300;
+    margin-left: 20px;
+    margin-top: 5px
+}
+
+.weather-expectation {
+    background-color: #E8E8E8;
+    height: 100%;
+    width: inherit;
+    position: absolute;
+    border-left: 2px solid #ddd;
+}
+
+.weather-expectation .title {
+    color: black;
+    font-size: 20px;
+    font-weight: 300;
+    margin-left: 5px;
+    padding-top: 25px;
+}
+
+.weather-expectation .content {
+    padding-top: 20px;
+    padding-left: 10px;
+}
+
+.temperature {
+    display: inline-block;
+    font-size: 80px;
+    font-weight: 200;
+    vertical-align: middle;
+}
+
+.temperaturebounds {
+    color: dimgray;
+    font-size: 20px;
+    font-weight: 300;
+    margin-left: 20px;
+}
+
+.largeicon {
+    font-size: 120px;
+    margin-left: 30px;
+}
+
+.weathersize {
+    position: relative;
+    max-width: 525px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.weather-body {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin-right: 30px;
+}
+
+.time {
+    color: gray;
+    font-size: 30px;
+    font-weight: 300;
+    margin-top: 20px;
+    margin-right: 20px;
+    float: right;
+}
+
+.iconinfo {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: block;
+    padding-right: 20px;
+}
+
+.iconinfo .text {
+    font-size: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 2px;
+}
+
+.iconinfo .icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.iconinfo .iconcontent {
+    height: 100%;
+    display: block;
+    bottom: 0;
+    vertical-align: bottom;
+}
+
+.dimgray {
+    color: dimgray;
+}
+
+.ancol {
+    width: 0%;
+}
+
+.weathers {
+    position: relative;
+    z-index: 2;
+}
+
+.daycard.a {
+    color: #f47933;
+}
+
+
+@media only screen and (max-width: 550px) {
+    .temperature {
+        font-size: 70px;
+    }
+    .largeicon {
+        font-size: 100px;
+        margin-left: 10px;
+    }
+
+    .temperaturebounds {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 415px) {
+    .temperature {
+        font-size: 50px;
+    }
+    .largeicon {
+        font-size: 70px;
+        margin-left: 10px;
+    }
+    .iconinfo .text {
+        font-size: 15px;
+    }
+
+    .iconinfo .icon {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .iconinfo  {
+        padding-right: 10px;
+    }
+    .time {
+        margin-right: 10px;
+    }
+}

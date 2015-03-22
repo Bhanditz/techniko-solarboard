@@ -3,8 +3,6 @@ app.controller("YieldController", function($rootScope, $scope, datepicker, momen
     this.vm = this;
     this.datepicker = datepicker;
 
-
-
     $scope.$watchCollection(function() {
         return datepicker;
     }, function(newValue) {
@@ -41,10 +39,10 @@ app.controller("YieldController", function($rootScope, $scope, datepicker, momen
     var setButtonTitle = function(date) {
         if (date.day) {
             $scope.buttonVisible = true;
-            $scope.buttonTitle = 'Maandoverzicht';
+            $scope.buttonTitle = window.innerWidth < 500 ? 'Mnd' : 'Maandoverzicht';
         } else if (date.month) {
             $scope.buttonVisible = true;
-            $scope.buttonTitle = 'Jaaroverzicht';
+            $scope.buttonTitle = window.innerWidth < 500 ? 'Jaar' : 'Jaaroverzicht';
         } else if (date.year) {
             $scope.buttonVisible = false;
         }

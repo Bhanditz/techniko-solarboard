@@ -19,7 +19,7 @@
 
 <body>
 
-    <header>
+    <header ng-controller="MenuController as menu">
         <ul id="slide-out" class="side-nav fixed">
             <li class="logo">
                 <img class="logoimg" src="res/logo.png">
@@ -28,7 +28,10 @@
             </li>
             <li ui-sref-active="active bold"><a class="waves-effect" ui-sref='yield'>Opwekking</a>
             </li>
-            <li ui-sref-active="active bold"><a class="waves-effect" ui-sref='new1'>Zonnepanelen</a>
+            <li><a class="waves-effect" ng-click="menu.openTab()">Zonnepanelen</a>
+                <ul>
+                    <li class="subitem" ng-repeat="solar in menu.solars">{{solar}}</li>
+                </ul>
             </li>
             <li ui-sref-active="active bold"><a class="waves-effect" ui-sref='new2'>Exporteren</a>
             </li>
@@ -40,11 +43,12 @@
         <nav class="top-nav">
             <div class='container'>
                 <div class="nav-wrapper">
-                    <a class="page-title">{{pageTitle}}</a>
+                    <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu button"></i></a>
+                    <a ng-cloak class="page-title">{{pageTitle}}</a>
                 </div>
             </div>
         </nav>
-        <div class="reveal-animation" ui-view>
+        <div id="mainView" class="reveal-animation" ui-view>
             <div class="container">
                 <div class="card blue-grey darken-1">
                     <div class="card-content white-text">

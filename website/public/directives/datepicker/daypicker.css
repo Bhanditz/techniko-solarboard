@@ -32,7 +32,7 @@
 	font-size: 20px;
 	line-height: 50px;
 	font-weight: 300;
-	display: table-cell !important;
+	display: table-cell;
 	cursor: pointer;
 	cursor: hand;
 }
@@ -54,4 +54,13 @@
 	color: grey;
 	cursor: default;
 	cursor: default;
+}
+
+@media only screen and (max-width: 620px) {
+	.days .daybox {
+		height: 20px;
+		font-size: 15px;
+		line-height: 30px;
+	}
+
 }

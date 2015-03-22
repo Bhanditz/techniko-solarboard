@@ -1,7 +1,7 @@
 app.factory('generated', function($http, $q, moment) {
     var url = 'http://82.74.62.72:1337/';
 
-    var getDay = function(day, force) {
+    function getDay(day, force) {
         var date;
         if (!day) {
             var now = new Date();
@@ -34,7 +34,7 @@ app.factory('generated', function($http, $q, moment) {
         return $http.get(url + 'solar/generated/date=' + date, {
             cache: true
         });
-    };
+    }
 
     //When a month is loaded the (~30) days are loaded with it, there is no reason to ask the server for a specific day
     //again if the client has it already loaded. This cache will keep the months.
@@ -45,7 +45,7 @@ app.factory('generated', function($http, $q, moment) {
      * @param  given month in UTC unix format
      * @param  if this is true only date + output of every day will be sent, saves bandwidth
      */
-    var getMonth = function(month, totalOnly) {
+    function getMonth(month, totalOnly) {
         var date = month ? moment.utc(month, 'X') : moment.utc();
         date.startOf('month');
 
@@ -69,7 +69,7 @@ app.factory('generated', function($http, $q, moment) {
         }
 
         return promise;
-    };
+    }
 
     function getYear(year) {
         var date = year ? moment.utc(year, 'X') : moment.utc();

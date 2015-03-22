@@ -1,4 +1,4 @@
-app.directive('ngGraph', function($q, generated, moment, weather, datepicker) {
+app.directive('ngGraph', function(generated, moment, weather, datepicker) {
     return {
         restrict: 'AE',
         templateUrl: './directives/graph/graphcard.html',
@@ -9,12 +9,34 @@ app.directive('ngGraph', function($q, generated, moment, weather, datepicker) {
         link: function(scope, iElement, attr, ctrl) {
             scope.graph = {
                 options: {
-                    xAxis: {},
+                    xAxis: {
+                        type: 'datetime',
+                        title: {
+                            text: "Tijdstip"
+                        }
+                    },
 
-                    yAxis: {},
+                    yAxis: [{
+                        labels: {
+                            format: "{value} kWh"
+                        },
+                        floor: 0,
+                        title: {
+                            text: "Opgewekt"
+                        }
+                    }, {
+                        labels: {
+                            format: "{value} W"
+                        },
+                        floor: 0,
+                        opposite: true,
+                        title: {
+                            text: "Output"
+                        }
+                    }],
 
                     chart: {
-                        zoomType: "xy",
+                        zoomType: "x",
                         events: {
                             drilldown: function(e) {
                                 scope.$apply(function() {
@@ -48,7 +70,10 @@ app.directive('ngGraph', function($q, generated, moment, weather, datepicker) {
 
             scope.$watch('graphDate', function(newValue, oldValue) {
                 if (!newValue) {
-                    newValue = moment.utc().startOf('day').format('X');
+                    newValue = {
+                        date: moment.utc().startOf('day').format('X'),
+                        type: 'day'
+                    };
                 }
                 scope.graph.series = [];
                 processDate(newValue);
@@ -69,38 +94,36 @@ app.directive('ngGraph', function($q, generated, moment, weather, datepicker) {
             };
 
             var addDay = function(unixDay, series) {
-                scope.graph.options.xAxis = [];
-                scope.graph.options.xAxis.push({
-                    type: 'datetime',
-                    title: {
-                        text: "Tijdstip"
-                    }
-                });
-
-                scope.graph.options.yAxis = [];
-                scope.graph.options.yAxis.push({
-                    labels: {
-                        format: "{value} kWh"
-                    },
-                    floor: 0,
-                    title: {
-                        text: "Opgewekt"
-                    }
-                });
-                scope.graph.options.yAxis.push({
-                    labels: {
-                        format: "{value} W"
-                    },
-                    floor: 0,
-                    opposite: true,
-                    title: {
-                        text: "Output"
-                    }
-                });
-
                 generated.getDay(unixDay).then(function(data) {
                     if (data) {
+                        scope.graph.options.xAxis = [];
+                        scope.graph.options.yAxis = [];
+                        scope.graph.options.xAxis.push({
+                            type: 'datetime',
+                            title: {
+                                text: "Tijdstip"
+                            }
+                        });
 
+                        scope.graph.options.yAxis.push({
+                            labels: {
+                                format: "{value} kWh"
+                            },
+                            floor: 0,
+                            title: {
+                                text: "Opgewekt"
+                            }
+                        });
+                        scope.graph.options.yAxis.push({
+                            labels: {
+                                format: "{value} W"
+                            },
+                            floor: 0,
+                            opposite: true,
+                            title: {
+                                text: "Output"
+                            }
+                        });
 
                         var day = moment(unixDay, 'X').startOf('day');
                         var unixDate = Date.UTC(day.year(), day.month(), day.date());
@@ -158,59 +181,61 @@ app.directive('ngGraph', function($q, generated, moment, weather, datepicker) {
             };
 
             function addMonth(month) {
-                scope.graph.options.xAxis = [];
-                scope.graph.options.xAxis.push({
-                    type: 'datetime',
-                    dateTimeLabelFormats: {
-                        day: '%e %b'
-                    },
-                    title: {
-                        text: "Datum"
-                    }
-                });
-
-                scope.graph.options.yAxis = [];
-                scope.graph.options.yAxis.push({
-                    labels: {
-                        format: "{value} kWh"
-                    },
-                    floor: 0,
-                    title: {
-                        text: "Opgewekt"
-                    }
-                });
                 generated.getMonth(month, true).then(function(data) {
                     if (data) {
+                        scope.graph.options.xAxis = [];
+                        scope.graph.options.yAxis = [];
+                        scope.graph.options.xAxis.push({
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                day: '%e %b'
+                            },
+                            title: {
+                                text: "Datum"
+                            }
+                        });
+
+                        scope.graph.options.yAxis.push({
+                            labels: {
+                                format: "{value} kWh"
+                            },
+                            floor: 0,
+                            title: {
+                                text: "Opgewekt"
+                            }
+                        });
+
                         processData(data);
                     }
                 });
             }
 
             function addYear(year) {
-                scope.graph.options.xAxis = [];
-                scope.graph.options.xAxis.push({
-                    type: 'datetime',
-                    dateTimeLabelFormats: {
-                        day: '%B',
-                        month: '%B'
-                    },
-                    title: {
-                        text: "Maand"
-                    }
-                });
-
-                scope.graph.options.yAxis = [];
-                scope.graph.options.yAxis.push({
-                    labels: {
-                        format: "{value} kWh"
-                    },
-                    floor: 0,
-                    title: {
-                        text: "Opgewekt"
-                    }
-                });
                 generated.getYear(year).then(function(data) {
                     if (data) {
+                        scope.graph.options.xAxis = [];
+                        scope.graph.options.yAxis = [];
+                        scope.graph.options.xAxis.push({
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                day: '%B',
+                                month: '%B'
+                            },
+                            title: {
+                                text: "Maand"
+                            }
+                        });
+
+                        scope.graph.options.yAxis.push({
+                            labels: {
+                                format: "{value} kWh"
+                            },
+                            floor: 0,
+                            title: {
+                                text: "Opgewekt"
+                            }
+                        });
+
                         processData(data);
                     }
                 });

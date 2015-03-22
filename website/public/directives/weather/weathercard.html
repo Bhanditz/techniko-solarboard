@@ -1,0 +1,43 @@
+<link rel="stylesheet" type="text/css" href="/directives/weather/weathercard.css">
+<div ng-cloak  class="card weathers">
+    <div class="row">
+        <div class="col s5">
+            <div>
+                <div class="weather-title">Ekehaar</div>
+                <div class="weather-subtitle">{{description|uppercase}}</div>
+            </div>
+        </div>
+        <div class="col s7">
+            <div class="time">{{time}}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s4">
+            <i class="largeicon dimgray" ng-class="weatherIcon"></i>
+        </div>
+        <div class="col s8">
+            <div class="weather-body">
+                <span class="temperature">{{temperature}}°C</span>
+                <span class="temperaturebounds">{{tempMin}}°C / {{tempMax}}°C</span>
+                <ul class="iconinfo">
+                    <div class="iconcontent">
+                        <li>
+                            <i class='small dimgray mdi mdi-weather-sunset-up icon'></i>
+                            <span class="text">{{sunup}}</span>
+                        </li>
+
+                        <li>                        
+                            <i class='small dimgray mdi mdi-weather-sunset-down icon'></i>
+                            <span class="text">{{sundown}}</span>
+                        </li>
+
+                        <li>
+                            <i class='small dimgray mdi mdi-weather-cloudy icon'></i>
+                            <span class="text">{{cloudness}}</span>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

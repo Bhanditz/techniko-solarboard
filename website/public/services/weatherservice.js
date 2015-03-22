@@ -1,21 +1,15 @@
-app.factory('weather', function ($http) {
+app.factory('weather', function($http) {
     var city = '2759632';
     var apikey = '267194dcaef308f0ecd76989b9a78877';
 
-    var current = function () {
-        return $http.jsonp("http://api.openweathermap.org/data/2.5/weather", {
-            params: {
-                id: city,
-                apikey: apikey,
-                callback: 'JSON_CALLBACK',
-                lang: 'nl',
-                units: 'metric'
-            },
-            cache: true
+    var current = function() {
+        return $http({
+            method: 'GET',
+            url: 'http://82.74.62.72:1337/weather'
         });
     };
 
-    var today = function () {
+    var today = function() {
         var now = new Date();
         var start = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
         var end = now.getTime();

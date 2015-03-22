@@ -9,23 +9,8 @@ app.factory('weather', function($http) {
         });
     };
 
-    var today = function() {
-        var now = new Date();
-        var start = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
-        var end = now.getTime();
-        var url = "http://api.openweathermap.org/data/2.5/history/city?id=" + city + "&type=hour&start=" + Math.floor(start / 1000) + "&cnt=" + 4 + "&APPID=" + apikey + "&callback=JSON_CALLBACK";
-        console.log(url);
-        return $http.jsonp(url, {
-            params: {
-
-            },
-            cache: true
-        });
-    };
-
 
     return {
-        current: current,
-        today: today
+        current: current
     };
 });

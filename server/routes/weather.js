@@ -22,20 +22,20 @@ loadWeather();
 function loadWeather() {
     var cur = new Date();
     console.log("Loading new weather data at " + cur.getHours() + ":" + cur.getMinutes());
-    try {
-        http.get(url, function(res) {
-            var str = '';
-            res.on('data', function(chunk) {
-                str += chunk;
-            });
-
-            res.on('end', function() {
-                weatherData = JSON.parse(str);
-            });
+    http.get(url, function(res) {
+        res.on('error', function(err) {
+            console.log(err);
         });
-    } catch (err) {
-        console.log(err);
-    }
+
+        var str = '';
+        res.on('data', function(chunk) {
+            str += chunk;
+        });
+
+        res.on('end', function() {
+            weatherData = JSON.parse(str);
+        });
+    });
 }
 
 router.get('/', function(req, res, next) {

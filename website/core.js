@@ -8,6 +8,21 @@ var express = require('express'),
 var app = module.exports = express();
 
 
+if (app.get('env') == 'development') {
+    var browserSync = require('browser-sync');
+    var bs = browserSync({
+        logSnippet: false,
+        // Serve files from the app directory
+        server: {
+            baseDir: "public",
+            directory: true
+        },
+        files: "public/**"
+    });
+    app.use(require('connect-browser-sync')(bs));
+    console.log("Browsersync has been activated");
+}
+
 /**
  * Configuration
  */
@@ -21,20 +36,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
-
-var env = process.env.NODE_ENV || 'development';
-
-// production only
-if (env === 'production') {
-    // TODO
-}
-
-app.all('/*', function(req, res, next) {
-    // Just send the index.html for other files to support HTML5Mode
-    res.sendFile('index.html', {
-        root: __dirname
-    });
-});
 
 
 var server = app.listen(app.get('port'), function() {

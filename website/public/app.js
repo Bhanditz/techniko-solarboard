@@ -5,10 +5,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
         .state('dashboard', {
-            resolve: {
-                solars: "solars",
-                generated: "generated"
-            },
+        resolve: {
+            solars: "solars",
+            generated: "generated"
+        },
             url: '/',
             templateUrl: '/partials/dashboard.html',
             controller: 'DashboardController as dash'

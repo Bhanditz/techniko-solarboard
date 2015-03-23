@@ -2,7 +2,7 @@
   "name": "SolarPanel",
   "version": "1.0.0",
   "description": "Dashboard for Solar Panels of Techniko",
-  "main": "app.js",
+  "main": "core.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,7 +17,11 @@
     "mongoose": "^3.8.23"
   },
   "devDependencies": {
+    "browser-sync": "^2.4.0",
+    "connect-browser-sync": "^2.0.1",
     "connect-modrewrite": "^0.7.11",
+    "gulp": "^3.8.11",
+    "gulp-util": "^3.0.4",
     "reload": "^0.1.0"
   },
   "directories": {

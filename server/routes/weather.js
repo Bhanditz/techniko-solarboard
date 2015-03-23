@@ -33,7 +33,12 @@ function loadWeather() {
         });
 
         res.on('end', function() {
-            weatherData = JSON.parse(str);
+            try {
+                weatherData = JSON.parse(str);
+            } catch (err) {
+                console.log(err);
+                loadWeather(); //Try again
+            }
         });
     });
 }

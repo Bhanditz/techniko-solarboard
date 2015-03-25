@@ -5,7 +5,9 @@
 }
 
 .monthpicker .box {
-    transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+        -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
     position: relative;
     margin-left: 0;
     margin-right: 0;
@@ -21,7 +23,9 @@
 
 .monthpicker .active,
 .monthpicker .box:hover {
-    transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
     background-color: #E8E8E8;
     box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     transform: translateY(-2px);

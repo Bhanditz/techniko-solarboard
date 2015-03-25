@@ -50,10 +50,19 @@
 }
 
 .temperaturebounds {
+    display: inline-block;
     color: dimgray;
     font-size: 20px;
-    font-weight: 300;
     margin-left: 10px;
+    vertical-align: middle;
+}
+
+.temperaturebounds .tempmin {
+    color: rgb(0, 197, 255);
+}
+
+.temperaturebounds .tempmax {
+    color: #FF5722;
 }
 
 .largeicon {
@@ -88,6 +97,7 @@
     position: absolute;
     right: 0;
     bottom: 0;
+    top: 0;
     display: block;
     padding-right: 20px;
 }
@@ -136,7 +146,7 @@
 
 @media only screen and (max-width: 550px) {
     .temperature {
-        font-size: 70px;
+        font-size: 60px;
     }
     .largeicon {
         font-size: 100px;
@@ -146,14 +156,14 @@
 
 @media only screen and (max-width: 415px) {
     .temperature {
-        font-size: 50px;
+        font-size: 45px;
     }
     .largeicon {
         font-size: 70px;
         margin-left: 10px;
     }
     .iconinfo .text {
-        font-size: 15px;
+        font-size: 13px;
     }
 
     .iconinfo .icon {

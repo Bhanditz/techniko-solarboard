@@ -5,10 +5,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
         .state('dashboard', {
-        resolve: {
-            solars: "solars",
-            generated: "generated"
-        },
+            resolve: {
+                solars: "solars",
+                generated: "generated"
+            },
             url: '/',
             templateUrl: '/partials/dashboard.html',
             controller: 'DashboardController as dash'
@@ -18,5 +18,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
         url: '/yield',
         templateUrl: '/partials/yield.html',
         controller: 'YieldController as yield'
+    })
+
+    .state('solars', {
+        url: '/solars/:solar',
+        templateUrl: '/partials/solars.html',
+        controller: 'SolarController as solar'
     });
+
+
 });

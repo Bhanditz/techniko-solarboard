@@ -3,8 +3,8 @@ app.directive('ngYearPicker', function(moment, datepicker) {
         restrict: 'AE',
         transclude: true,
         templateUrl: './directives/datepicker/yearpicker.html',
-        scope: true,
-        link: function(scope, iElement, iAttrs, ctrl) {
+        scope: {},
+        link: function(scope, element, iAttrs, ctrl) {
             datepicker.year = parseInt(moment().format('YYYY'));
             scope.animating = false;
 
@@ -31,7 +31,7 @@ app.directive('ngYearPicker', function(moment, datepicker) {
                 for (var i = 0; i < 5; i++) {
                     scope.years.push(datepicker.year + (-2 + i));
                 }
-                $('.year').each(function(id, element) {
+                $(element).find('.year').each(function(id, element) {
                     if (id === 2) {
                         $(this).css(frontYearCSS);
                     } else {
@@ -51,7 +51,7 @@ app.directive('ngYearPicker', function(moment, datepicker) {
                     datepicker.year -= direction;
                     var max = 4;
 
-                    $('.year').each(function(id, element) {
+                    $(element).find('.year').each(function(id, element) {
                         var pos = $(this).data('position') + direction;
                         $(this).data('position', pos);
 

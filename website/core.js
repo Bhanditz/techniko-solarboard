@@ -1,9 +1,10 @@
-var express = require('express'),
-    bodyParser = require('body-parser'),
-    methodOverride = require('method-override'),
-    morgan = require('morgan'),
-    http = require('http'),
-    path = require('path');
+var express = require('express');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var morgan = require('morgan');
+var http = require('http');
+var path = require('path');
+var favicon = require('serve-favicon');
 
 var app = module.exports = express();
 
@@ -35,6 +36,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(methodOverride());
+app.use(favicon(path.join(__dirname, "public", "res", "favicon.ico")));
 app.use(express.static(path.join(__dirname, 'public')));
 
 

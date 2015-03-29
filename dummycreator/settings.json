@@ -1,0 +1,27 @@
+{
+	"solars": [{
+		"name": "Ives",
+		"output": 6000,
+		"deviation": 500
+		}, {
+			"name": "Bas",
+			"output": 5000,
+			"deviation": 250
+			}, {
+				"name": "Sander",
+				"output": 6000,
+				"deviation": 250
+				}, {
+					"name": "Sjoerd",
+					"output": 7500,
+					"deviation": 500
+					}, {
+						"name": "Anja",
+						"output": 1000,
+						"deviation": 750
+						}, {
+							"name": "Ary",
+							"output": 10000,
+							"deviation": 500
+							}]
+						}

@@ -53,7 +53,7 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get('/:id/:date', function(req, res, next) {
+router.get('/solar/:id/:date', function(req, res, next) {
     var date = moment.utc(req.params.date, 'X');
     var id = req.params.id + ":" + date.format('X');
     Generated.findById(id, function(err, data) {
@@ -135,6 +135,7 @@ router.delete('/:id/:date', function(req, res, next) {
 });
 
 router.put('/', function(req, res, next) {
+    console.log("added");
     var missing = [];
     if (!req.body.solarid) missing.push("solarid");
     if (!req.body.generated) missing.push("generated");

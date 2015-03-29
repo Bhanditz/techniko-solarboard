@@ -1,10 +1,8 @@
-app.controller('SolarController', function($scope, $stateParams, solars, outputs, moment) {
+app.controller('SolarController', function($scope, $stateParams, $interval, solars, outputs, moment) {
     vm = this;
     this.solar = ($stateParams.solar);
     vm.output = 0;
-    outputs.solar(this.solar).success(function(data) {
-        vm.output = data.output;
-    });
+
     solars.solar(this.solar).success(function(data) {
         vm.data = data;
         vm.outputpeak = data.output / data.peak;
@@ -12,7 +10,18 @@ app.controller('SolarController', function($scope, $stateParams, solars, outputs
 
         getTotalGenerated();
     });
+    getOutput();
+    var timer = $interval(function() {
+        getOutput();
+    }, 3000);
 
+    function getOutput() {
+        if (vm.solar) {
+            outputs.solar(vm.solar).success(function(data) {
+                vm.output = data.output;
+            });
+        }
+    }
 
     function getPercentageOnline() {
         var now = moment();
@@ -23,12 +32,9 @@ app.controller('SolarController', function($scope, $stateParams, solars, outputs
     }
 
     function getTotalGenerated() {
-        console.log("Trying");
         solars.all.success(function(data) {
             var total = 0;
-            console.log(data);
             data.forEach(function(solar) {
-                console.log(solar);
                 total += parseInt(solar.totalYield);
             });
             vm.totalGenerated = total;

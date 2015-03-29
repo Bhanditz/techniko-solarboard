@@ -13,10 +13,9 @@ app.factory('weather', function($http, $location, $interval, $cacheFactory) {
 
     //Remove cache after every 5 minutes
     $interval(function() {
-        console.log("Removing weather cache");
         var cache = $cacheFactory.get('$http');
         cache.remove(url);
-}, 1000 * 60 * 5);
+    }, 1000 * 60 * 5);
 
     return {
         current: current

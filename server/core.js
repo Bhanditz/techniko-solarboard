@@ -18,8 +18,9 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(crossDomain);
-app.use('/solar/output', outputapi);
+
 app.use('/solar/generated', generatedapi);
+app.use('/solar/output', outputapi);
 app.use('/solar', solarapi);
 app.use('/weather', weatherapi);
 

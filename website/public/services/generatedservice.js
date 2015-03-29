@@ -12,7 +12,7 @@ app.factory('generated', function($http, $q, $location, moment) {
         }
 
         if (solar) {
-            return $http.get(url + '/solar/generated/' + solar + "/" + date, {
+            return $http.get(url + '/solar/generated/solar/' + solar + "/" + date, {
                 cache: true
             });
         } else {

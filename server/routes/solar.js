@@ -26,6 +26,7 @@ router.put('/:id', function(req, res, next) {
     if (!req.body.peak) missing.push("peak");
     if (!req.body.location) missing.push("location");
     if (!req.body.invertor) missing.push("invertor");
+    if (!req.body.solarpanels) missing.push("solarpanels");
 
 
     if (missing.length !== 0) {
@@ -43,7 +44,10 @@ router.put('/:id', function(req, res, next) {
             solar = new Solar({
                 _id: req.params.id,
                 description: req.body.description,
-                peak: req.body.peak
+                peak: req.body.peak,
+                location: req.body.location,
+                invertor: req.body.invertor,
+                solarpanels: req.body.solarpanels
             });
         }
 

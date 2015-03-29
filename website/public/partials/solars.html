@@ -17,7 +17,7 @@
                 <span class="solarheaderdesc">Omvormer</span>
             </div>
         </div>
-        <div  ng-progress progress="72" barheight="2"></div>
+        <div ng-progress progress="72" barheight="2"></div>
         <div class='solarbody'>
             <div class='row solarrow'>
                 <div class="col s12 m8 solarcontent">
@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                             <div class="subinfo">
-                                <span class="numbers">{{solar.data.highestOutput}}</span>
+                                <span class="numbers">{{solar.data.highestOutput | number : 0}}</span>
                                 <div class="sort">
                                     <div class="unit">watt</div>
                                     <div class="extrainfo">hoogste productie</div>
@@ -58,7 +58,7 @@
                     <div class="infocard outputcard">
                         <div class="content">
                             <i class="icon mdi mdi-flash outputicon"></i>
-                            <span class="numbers">{{solar.output | number}}</span>
+                            <span class="numbers">{{solar.output | number : 0}}</span>
                             <span class="sort">watt</span>
                         </div>
                         <div class="progressbar" ng-progress progress="{{solar.outputpeak * 100}}" color="#008db3"></div>
@@ -68,7 +68,7 @@
                     <div class="infocard yieldcard">
                         <div class="content">
                             <i class="icon mdi mdi-leaf yieldicon"></i>
-                            <span class="numbers">{{(solar.data.totalYield / 1000) | number : 2}}</span>
+                            <span class="numbers">{{(solar.data.totalYield / 1000) | number : 0}}</span>
                             <span class="sort">kWh</span>
                         </div>
                         <div class="progressbar" ng-progress progress="{{(solar.data.totalYield / solar.totalGenerated) * 100}}" color="#439330"></div>

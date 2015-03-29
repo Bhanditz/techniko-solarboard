@@ -6,11 +6,15 @@ app.factory('outputs', function($http, $location) {
         });
     }
 
-    return {
-        solar: getOutput,
-        all: $http({
+    function getAllOutput() {
+        return $http({
             method: 'GET',
             url: 'http://' + $location.host() + ':1337' + '/solar/output'
-        })
+        });
+    }
+
+    return {
+        solar: getOutput,
+        all: getAllOutput
     };
 });

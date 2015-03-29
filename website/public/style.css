@@ -296,18 +296,24 @@ nav.top-nav a.page-title {
 }
 
 .solarbody {
-    display: block;
-    width: 100%;
+    display: table;
     height: 100%;
+    width: 100%;
     margin-bottom: 0px;
-    background-color: #f8f8f8;
+    background-color: #ECF1F5;
+}
+
+.solarbody .solarrow {
+    display: table-row;
+    height: 100%;
 }
 
 .solarbody .solarbar {
-    display: block;
+    display: table-cell;
+    vertical-align: top;
+    float: none; 
     background-color: white;
     border-left: 1px solid #ddd;
-    height: inherit;
     padding-top: 15px;
     padding-bottom: 15px;
 }
@@ -322,11 +328,11 @@ nav.top-nav a.page-title {
 }
 
 .infocard .numbers {
+    display: inline-block;
     color: white;
     font-size: 80px;
     font-weight: 300;
-    top: 0;
-    bottom: 0;
+    overflow: hidden;
 }
 
 .infocard .sort {
@@ -334,8 +340,8 @@ nav.top-nav a.page-title {
     color: white;
     font-size: 27px;
     font-weight: 300;
-    top: 70px;
-    left: 235px;
+    right: 100px;
+    top: 30px;
 }
 
 .infocard .icon {
@@ -347,7 +353,7 @@ nav.top-nav a.page-title {
     margin-top: 20px;
 }
 
-.infocard .progressbar {
+.progressbar {
     width: 100%;
 }
 
@@ -370,6 +376,10 @@ nav.top-nav a.page-title {
 
 .outputcard:hover {
     background-color: #1db5de;
+}
+
+.outputicon {
+    color: #14819c;
 }
 
 .yieldcard {
@@ -419,4 +429,221 @@ nav.top-nav a.page-title {
     color: #a5531a;
 }
 
-.solarbody .solarcontent {}
+.solarbody .solarcontent {
+    display: table-cell;
+    vertical-align: top;
+    float: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.solarcontent .bodyrow {
+    height: 66%;
+    margin-bottom: 0px;
+}
+
+.solarcontent .bodycol {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.solarcontent .graphrow {
+    position: relative;
+    height: 34%;
+    margin-bottom: 0px;
+    background-color: #1db5de;
+}
+
+.bodycol .description {
+    position: absolute;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
+    left: 10px;
+    top: 5px;
+}
+
+.bodycol .centered {
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 15px;
+    right: 0;
+    left: 0;
+}
+
+.bodycol .circle {
+    border: 1px solid #ddd;
+    width: 150px;
+    height: 150px;
+    -moz-border-radius: 75px;
+    -webkit-border-radius: 75px;
+    border-radius: 75px;
+}
+
+.bodycol .data {
+    z-index: 1;
+    font-size: 72px;
+    font-weight: 400;
+}
+
+.bodycol .sort {
+    font-size: 32px;
+    font-weight: 300;
+    padding-left: 1px;
+}
+
+.bodyrow .subinfo {
+    min-height: 100px;
+    height: 33%;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+}
+
+.bodyrow .numbers {
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-size: 64px;
+    font-weight: 300;
+    color: #626D80;
+}
+
+.bodyrow .sort {
+    position: absolute;
+    width: 158px;
+    right: 0px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.sort .unit {
+    position: absolute;
+    font-size: 30px;
+    font-weight: 300;
+    right: 0;
+    color: #545973;
+    bottom: -7px;
+}
+
+.sort .extrainfo {
+    position: absolute;
+    font-size: 18px;
+    font-weight: 300;
+    color: #545973;
+    right: 0;
+    top: 0;
+}
+
+.bodycol .progressbar {
+    position: absolute;
+    bottom: 50px;
+}
+
+.graphrow .graphdescription {
+    position: absolute;
+    color: white;
+    font-size: 40px;
+    font-weight: 200;
+    left: 10px;
+    top: 15px;
+}
+
+.graphrow .timebutton {
+    position: absolute;
+    background-color: white;
+    color: black;
+    font-weight: 400;
+    right: 10px;
+    top: 15px;
+}
+
+.graphrow .graph {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:10px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+}
+
+@media only screen and (max-width: 1500px) {
+    .infocard .numbers {
+        font-size: 50px;
+    }
+
+    .bodyrow .numbers {
+        font-size: 40px;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .infocard .icon {
+        font-size: 50px;
+    }
+
+    .infocard .sort {
+        font-size: 20px;
+        right: 75px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .solarheader .solarheaderfont {
+        font-size: 50px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .solarheader .solarheaderfont {
+        font-size: 40px;
+    }
+
+    .solarbody .solarbar {
+        display: inline-block;
+        vertical-align: none;
+        width: 100%;
+    }
+
+    .solarbody .solarcontent {
+        display: inline-block;
+        vertical-align: none;
+    }
+    .infocard .numbers {
+        font-size: 70px;
+    }
+
+    .infocard .icon {
+        font-size: 80px;
+    }
+
+    .infocard .sort {
+        font-size: 30px;
+        right: 120px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .solarheader .solarheaderfont {
+        font-size: 30px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .solarheader .solarheaderfont {
+        font-size: 20px;
+    }
+}

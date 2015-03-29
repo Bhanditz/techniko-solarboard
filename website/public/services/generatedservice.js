@@ -1,7 +1,7 @@
 app.factory('generated', function($http, $q, $location, moment) {
     var url = 'http://' + $location.host() + ':1337';
 
-    function getDay(day, force) {
+    function getDay(day, solar) {
         var date;
         if (!day) {
             var now = new Date();
@@ -11,34 +11,16 @@ app.factory('generated', function($http, $q, $location, moment) {
             date = day;
         }
 
-        //Check if the day was saved in monthcache
-        if (!force && monthCache.length !== 0) {
-            var monthDay = moment.utc(date, 'X');
-            var month = $.grep(monthCache, function(e) {
-                console.log(monthDay.startOf('month').format('X'));
-                return e.month == monthDay.startOf('month').format('X');
+        if (solar) {
+            return $http.get(url + '/solar/generated/' + solar + "/" + date, {
+                cache: true
             });
-
-            if (month.length !== 0) {
-                var targetDay = moment.utc(date, 'X').startOf('day');
-                return $q(function(resolve, reject) {
-                    resolve({
-                        data: $.grep(month[0].data, function(e) {
-                            return moment.utc(e.date).isSame(targetDay);
-                        })
-                    });
-                });
-            }
+        } else {
+            return $http.get(url + '/solar/generated/date=' + date, {
+                cache: true
+            });
         }
-
-        return $http.get(url + '/solar/generated/date=' + date, {
-            cache: true
-        });
     }
-
-    //When a month is loaded the (~30) days are loaded with it, there is no reason to ask the server for a specific day
-    //again if the client has it already loaded. This cache will keep the months.
-    var monthCache = [];
 
     /**
      * Gets every day of given month (in UNIX)

@@ -52,6 +52,16 @@ router.get('/', function(req, res, next) {
     });
 });
 
+
+router.get('/:id/:date', function(req, res, next) {
+    var date = moment.utc(req.params.date, 'X');
+    var id = req.params.id + ":" + date.format('X');
+    Generated.findById(id, function(err, data) {
+        if (err) return next(err);
+        res.json(data);
+    });
+});
+
 router.get('/month/:date', function(req, res, next) {
     var monthDate = moment.utc(req.params.date, 'X').startOf('month');
     if (monthDate.isValid()) {
@@ -113,15 +123,6 @@ router.get('/date_start=:datestart&date_end=:dateend/:totalonly?', function(req,
             sendData = data;
         }
         res.json(sendData);
-    });
-});
-
-router.get('/:id/:date', function(req, res, next) {
-    var date = moment.utc(req.params.date, 'X');
-    var id = req.params.id + ":" + date.format('X');
-    Generated.findById(id, function(err, data) {
-        if (err) return next(err);
-        res.json(data);
     });
 });
 

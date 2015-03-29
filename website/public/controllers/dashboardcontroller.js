@@ -5,8 +5,9 @@ app.controller('DashboardController', function($rootScope, $scope, $http, moment
     $rootScope.pageTitle = "Overzicht";
 
     var now = new Date();
-
-    this.outputData = solars.data;
+    solars.all.success(function(data) {
+        vm.outputData = data;
+    });
 
     this.getFromNow = function(date) {
         return moment(date).fromNow();

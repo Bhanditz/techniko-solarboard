@@ -2,7 +2,7 @@ app.controller("MenuController", function($scope, $state, solars) {
     $(".button-collapse").sideNav();
     var vm = this;
     var cacheSolars = [];
-    solars.success(function(data) {
+    solars.all.success(function(data) {
         data.forEach(function(solar) {
             cacheSolars.push(solar._id);
         });
@@ -46,45 +46,43 @@ app.controller("MenuController", function($scope, $state, solars) {
         }
     });
 
-    if (document.innerWidth < 992) {
-        //Mobile topnav for scrolling
-        var iScrollPos = 0;
-        var topNav = $('.top-nav');
-        var lastScrolledUp = true;
-        $(window).scroll(function() {;
-            var iCurScrollPos = $(this).scrollTop();
-            var delta = (iCurScrollPos - iScrollPos);
-            var oldTop = topNav.css('top').split('px')[0];
-            if (iCurScrollPos > iScrollPos) {
-                if (oldTop > -80) {
-                    if (oldTop - delta < -80)
-                        topNav.css('top', '-80px');
-                    else
-                        topNav.css('top', '-=' + delta + 'px');
-                }
-                lastScrolledUp = false;
-            } else {
-                if (oldTop < 0) {
-                    if (oldTop - delta > 0)
-                        topNav.css('top', '0px');
-                    else
-                        topNav.css('top', '-=' + delta + 'px');
-                }
-                lastScrolledUp = true;
+    //Mobile topnav for scrolling
+    var iScrollPos = 0;
+    var topNav = $('.top-nav');
+    var lastScrolledUp = true;
+    $(window).scroll(function() {
+        var iCurScrollPos = $(this).scrollTop();
+        var delta = (iCurScrollPos - iScrollPos);
+        var oldTop = topNav.css('top').split('px')[0];
+        if (iCurScrollPos > iScrollPos) {
+            if (oldTop > -80) {
+                if (oldTop - delta < -80)
+                    topNav.css('top', '-80px');
+                else
+                    topNav.css('top', '-=' + delta + 'px');
             }
-            iScrollPos = iCurScrollPos;
-
-        });
-
-        (document).addEventListener('touchend', function(e) {
-            //Only if all fingers lifted the screen
-            if (e.touches.length === 0) {
-                topNav.animate({
-                    'top': (lastScrolledUp ? 0 : -80) + 'px'
-                }, 400);
+            lastScrolledUp = false;
+        } else {
+            if (oldTop < 0) {
+                if (oldTop - delta > 0)
+                    topNav.css('top', '0px');
+                else
+                    topNav.css('top', '-=' + delta + 'px');
             }
-        });
-    }
+            lastScrolledUp = true;
+        }
+        iScrollPos = iCurScrollPos;
+
+    });
+
+    (document).addEventListener('touchend', function(e) {
+        //Only if all fingers lifted the screen
+        if (e.touches.length === 0) {
+            topNav.animate({
+                'top': (lastScrolledUp ? 0 : -80) + 'px'
+            }, 400);
+        }
+    });
 
 
 });

@@ -24,6 +24,9 @@ router.put('/:id', function(req, res, next) {
     if (!req.body.id) missing.push("id");
     if (!req.body.description) missing.push("description");
     if (!req.body.peak) missing.push("peak");
+    if (!req.body.location) missing.push("location");
+    if (!req.body.invertor) missing.push("invertor");
+
 
     if (missing.length !== 0) {
         var errormsg = "Cannot add solar panel, missing required info:";

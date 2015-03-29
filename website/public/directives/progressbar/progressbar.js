@@ -10,17 +10,18 @@ app.directive('ngProgress', function() {
         link: function(scope, element, attr, ctrl) {
             var color = scope.color ? scope.color : '#31c662';
             var barheight = scope.barheight ? scope.barheight : "1";
-            console.log(scope);
             $(element).find('#progress-full').css({
                 'background-color': color,
                 'height': barheight + 'px',
-                'position': 'absolute'
+                'position': 'absolute',
+                'z-index': 2
             });
 
             $(element).find('#progress-empty').css({
                 'background-color': '#dcdcdc',
                 'height': barheight + 'px',
-                'position': 'absolute'
+                'position': 'absolute',
+                'z-index': 1
             });
 
             scope.$watch('progress', function(newValue) {
@@ -29,6 +30,10 @@ app.directive('ngProgress', function() {
 
             scope.$watch('color', function(newValue) {
                 setColor(newValue);
+            });
+
+            $(window).resize(function() {
+                setWidth(scope.progress / 100);
             });
 
             function setWidth(progress) {
@@ -41,7 +46,7 @@ app.directive('ngProgress', function() {
                 });
 
                 $(element).find('#progress-empty').animate({
-                    'left': width * progress,
+                    'left': width * progress + 'px',
                     'width': width * (1 - progress) + 'px'
                 }, {
                     duration: 500,

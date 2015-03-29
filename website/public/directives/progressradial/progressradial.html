@@ -1,0 +1,20 @@
+<svg id='circle' ng-attr-width='{{size}}' ng-attr-height='{{size}}'>
+	<circle ng-if="background" ng-attr-fill="{{background}}" ng-attr-r="{{radius - strokewidth / 2}}" ng-attr-cx="{{size / 2}}" ng-attr-cy="{{size / 2}}"></circle>
+	
+	<circle ng-if="strokebg" fill="none" ng-attr-r="{{radius}}" ng-attr-cx="{{size / 2}}" ng-attr-cy="{{size / 2}}" ng-attr-stroke="{{strokebg}}"
+	ng-attr-stroke-width="{{strokewidth}}"></circle>
+	
+	<circle style="-webkit-transition: all 0.3s;-o-transition: all 0.3s;transition: all 0.3s;" 
+	fill="none" stroke-linecap="round" ng-attr-r="{{radius}}" ng-attr-cx="{{size / 2}}" ng-attr-cy="{{size / 2}}" ng-attr-stroke="{{color}}"
+	ng-attr-stroke-width="{{strokewidth}}" ng-attr-stroke-dasharray="{{dash}}" stroke-dashoffset="{{(1 - progress / 100) * dash}}" 
+	ng-attr-transform="rotate({{offset - 90}}, {{size/2}}, {{size/2}})"></circle>
+
+	<text ng-attr-x="{{size / 2}}" ng-attr-y="{{size / 2}}" fill="#626D80" text-anchor="middle"  style="font-size: {{32 * size/100}}px; font-weight:400">
+		<tspan alignment-baseline="middle">{{progress ? progress : 0}}</tspan>
+		<tspan dx="-5" alignment-baseline="middle" baseline-shift="super" style="font-size: 20; font-weight: 300">{{sort}}</tspan>
+	</text>
+
+	<text ng-attr-x="{{size / 2}}" ng-attr-y="{{size / 2}}" fill="#626D80" text-anchor="middle"  style="font-weight:300">
+		<tspan style="font-size: 16px" dy="50">{{description}}</tspan>
+	</text>
+</svg>

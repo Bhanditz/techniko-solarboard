@@ -4,9 +4,21 @@ var solarSchema = new mongoose.Schema({
     _id: String,
     description: String,
     peak: Number,
-
-    output: Number,
-    updated: {
+    invertor: String,
+    location: String,
+    solarpanels: {
+        type: Number,
+        default: 1
+    },
+    highestOutput: {
+        type: Number,
+        default: 0
+    },
+    hoursOnline: {
+        type: Number,
+        default: 0
+    },
+    dateAdded: {
         type: Date,
         default: Date.now()
     },

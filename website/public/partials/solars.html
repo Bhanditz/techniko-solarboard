@@ -5,58 +5,86 @@
     <div class='card'>
         <div class='solarheader'>
             <div class='titleleft'>
-                <span class="solarheaderfont">{{solar.solar}}</span>
+                <span class="solarheaderfont">{{solar.data._id}}</span>
                 <span class="solarheaderdesc">Naam</span>
             </div>
             <div class='titlecenter'>
-                <span class="solarheaderfont">Schuur</span>
+                <span class="solarheaderfont">{{solar.data.location}}</span>
                 <span class="solarheaderdesc">Locatie</span>
             </div>
             <div class='titleright'>
-                <span class="solarheaderfont">SMA</span>
+                <span class="solarheaderfont">{{solar.data.invertor}}</span>
                 <span class="solarheaderdesc">Omvormer</span>
             </div>
         </div>
-        <div ng-progress progress="72" barheight="2"></div>
+        <div  ng-progress progress="72" barheight="2"></div>
+        <div class='solarbody'>
+            <div class='row solarrow'>
+                <div class="col s12 m8 solarcontent">
+                    <div class="row bodyrow">
+                        <div class="col l6 s12 m12 bodycol" style="height:100%; border-right: 1px solid #ddd; padding:10px">
+                            <div class="subinfo">
+                                <span class="numbers">{{solar.output / solar.data.solarpanels | number : 0}}</span>
+                                <div class="sort">
+                                    <div class="unit">watt</div>
+                                    <div class="extrainfo">per zonnepaneel</div>
+                                </div>
+                            </div>
+                            <div class="subinfo">
+                                <span class="numbers">{{solar.data.highestOutput}}</span>
+                                <div class="sort">
+                                    <div class="unit">watt</div>
+                                    <div class="extrainfo">hoogste productie</div>
+                                </div>
+                            </div>
+                            <div class="subinfo" style="border-bottom: none;">
+                                <span class="numbers">20</span>
+                                <div class="sort">
+                                    <div class="unit">watt</div>
+                                    <div class="extrainfo">lager dan gisteren</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l6 s12 m12">
 
-        <div class='row solarbody'>
-            <div class="col s8 solarcontent">
-                Test
+                        </div>
+                    </div>
+                    <div class="row graphrow">
+                        <div class="graphdescription">Output</div>
+                        <div class="graph" ng-solar-graph solar="{{solar.solar}}"></div>
+                    </div>
+                </div>
+                <div class="col s12 m4 solarbar">
+                    <div class="infocard outputcard">
+                        <div class="content">
+                            <i class="icon mdi mdi-flash outputicon"></i>
+                            <span class="numbers">{{solar.output | number}}</span>
+                            <span class="sort">watt</span>
+                        </div>
+                        <div class="progressbar" ng-progress progress="{{solar.outputpeak * 100}}" color="#008db3"></div>
+                        <span class="progressdescription">{{solar.outputpeak * 100}}% van max ({{solar.data.peak}}W)</span>
+                    </div>
+
+                    <div class="infocard yieldcard">
+                        <div class="content">
+                            <i class="icon mdi mdi-leaf yieldicon"></i>
+                            <span class="numbers">{{(solar.data.totalYield / 1000) | number : 2}}</span>
+                            <span class="sort">kWh</span>
+                        </div>
+                        <div class="progressbar" ng-progress progress="{{(solar.data.totalYield / solar.totalGenerated) * 100}}" color="#439330"></div>
+                        <span class="progressdescription">{{(solar.data.totalYield / solar.totalGenerated) * 100 | number : 1}}% van totale opbrengst zonnepanelen ({{solar.totalGenerated / 1000 | number : 2}}kWh)</span>
+                    </div>
+                    <div class="infocard onlinecard">
+                        <div class="content">
+                            <i class="icon mdi mdi-clock onlineicon"></i>
+                            <span class="numbers">{{solar.data.hoursOnline}}</span>
+                            <span class="sort">uur</span>
+                        </div>
+                        <div class="progressbar" ng-progress progress="{{solar.percentageOnline}}" color="#b75b1c"></div>
+                        <span class="progressdescription">{{solar.percentageOnline}}% van de totale tijd online (sinds {{solar.data.dateAdded | date : 'dd MMM yyyy'}})</span>
+                    </div>
+                </div>
             </div>
-            <div class="col s4 solarbar">
-                <div class="infocard outputcard">
-                    <div class="content">
-                        <img src="res/technikoicon.png" class="icon">
-                        <span class="numbers">1.024</span>
-                        <span class="sort">Watt</span>
-
-                    </div>
-                    <div class="progressbar" ng-progress progress="24" color="#008db3"></div>
-                    <span class="progressdescription">24% van max (6000W)</span>
-                </div>
-
-                <div class="infocard yieldcard">
-                    <div class="content">
-                        <i class="icon mdi mdi-leaf yieldicon"></i>
-                        <span class="numbers">1.134</span>
-                        <span class="sort">kWh</span>
-
-                    </div>
-                    <div class="progressbar" ng-progress progress="10" color="#439330"></div>
-                    <span class="progressdescription">10% totale opbrengst zonnepanelen (1.501.000 kWh)</span>
-                </div>
-                <div class="infocard onlinecard">
-                    <div class="content">
-                       <i class="icon mdi mdi-clock onlineicon"></i>
-                       <span class="numbers">76:12</span>
-                       <span class="sort">uur</span>
-
-                   </div>
-                   <div class="progressbar" ng-progress progress="76" color="#b75b1c"></div>
-                   <span class="progressdescription">76% van de totale tijd online</span>
-               </div>
-
-           </div>
-       </div>
-   </div>
+        </div>
+    </div>
 </div>

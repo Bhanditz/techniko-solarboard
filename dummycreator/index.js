@@ -12,25 +12,31 @@ var startDay = 8;
 var endDay = 20;
 var dayLength = endDay - startDay;
 var daymult = 0.7;
+var cloudness = 0.2;
 
 new CronJob('*/5 * * * *', function() {
     sendGenerated();
 }).start();
 
-new CronJob('0 0 * * *', function() {
+new CronJob('*/10 * * * *', function() {
     getDayBounds();
 }).start();
 getDayBounds();
 sendGenerated(moment().subtract(8, 'hours').format('X'));
 
 
-var timer = setInterval(sendOutput, 3000);
+var timer = setInterval(function() {
+    sendOutput();
+}, 3000);
 
-var old = moment().subtract(4, 'months').startOf('minute');
+var old = moment().subtract(4, 'months').startOf('month').startOf('minute');
+var now = moment().add(1, 'days').hour(13);
 
 setInterval(function() {
-    sendGenerated(old.format('X'));
-    old.add(5, 'minutes');
+    if (old < now) {
+        sendGenerated(old.format('X'));
+        old.add(5, 'minutes');
+    }
 }, 50);
 
 
@@ -56,7 +62,7 @@ function sendGenerated(date) {
 
 function sendOutput() {
     settings.solars.forEach(function(solar) {
-        console.log(calculateOutput(solar));
+        console.log("Sending: " + calculateOutput(solar));
         request.put({
                 url: 'http://localhost:1337/solar/output/' + solar.name + "/" + calculateOutput(solar)
             },
@@ -68,27 +74,35 @@ function sendOutput() {
 
 function getDayBounds() {
     request('http://localhost:1337/weather', function(err, res, body) {
-        var weatherData = JSON.parse(body);
-        var sunrise = moment(weatherData.sys.sunrise, 'X');
-        var sunset = moment(weatherData.sys.sunset, 'X');
+        if (err) throw err;
+        if (body && body.length !== 0) {
+            var weatherData = JSON.parse(body);
+            if (weatherData.sys) {
+                var sunrise = moment(weatherData.sys.sunrise, 'X');
+                var sunset = moment(weatherData.sys.sunset, 'X');
 
-        startDay = sunrise.hours();
-        endDay = sunset.hours();
-        dayLength = endDay - startDay;
-        daymult = 0.5 * Math.random();
+                startDay = sunrise.hours() + sunrise.minutes() / 60;
+                endDay = sunset.hours() + sunrise.minutes() / 60;
+                dayLength = endDay - startDay;
+                daymult = 0.5 * Math.random();
+                cloudness = weatherData.clouds.all / 100;
+            }
+        }
     });
 }
 
 function calculateOutput(solar, date) {
     var now;
-    if (date)
+    if (date) {
         now = moment(date, 'X');
-    else
+    } else {
         now = moment();
-    var hourmult = Math.max(0, -Math.pow((2 / startDay) * (now.hours() + now.minutes() / 60) - dayLength * 0.25 - 1, 2) + 1);
-
-    var output = solar.output * hourmult +
+    }
+    var time = now.hours() + (now.minutes() / 60);
+    var hourmult = Math.max(0, -(((time - startDay) * (time - endDay)) / (0.25 * (time * time))) * (1 - cloudness));
+    console.log(hourmult);
+    var output = (solar.output * hourmult +
         hourmult * Math.random() * solar.deviation +
-        hourmult * 1000 * daymult;
+        hourmult * 1000 * daymult);
     return output;
 }

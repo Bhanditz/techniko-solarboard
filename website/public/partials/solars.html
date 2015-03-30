@@ -38,10 +38,10 @@
                                 </div>
                             </div>
                             <div class="subinfo" style="border-bottom: none;">
-                                <span class="numbers">20</span>
+                                <span class="numbers">{{solar.outputDiff | number : 0}}</span>
                                 <div class="sort">
                                     <div class="unit">watt</div>
-                                    <div class="extrainfo">lager dan gisteren</div>
+                                    <div class="extrainfo">{{solar.isHigher()}} dan gisteren</div>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                             <span class="sort">watt</span>
                         </div>
                         <div class="progressbar" ng-progress progress="{{solar.outputpeak * 100}}" color="#008db3"></div>
-                        <span class="progressdescription">{{solar.outputpeak * 100}}% van max ({{solar.data.peak}}W)</span>
+                        <span class="progressdescription">{{solar.outputpeak * 100 | number : 1}}% van max ({{solar.data.peak}}W)</span>
                     </div>
 
                     <div class="infocard yieldcard">
@@ -72,7 +72,7 @@
                             <span class="sort">kWh</span>
                         </div>
                         <div class="progressbar" ng-progress progress="{{(solar.data.totalYield / solar.totalGenerated) * 100}}" color="#439330"></div>
-                        <span class="progressdescription">{{(solar.data.totalYield / solar.totalGenerated) * 100 | number : 1}}% van totale opbrengst zonnepanelen ({{solar.totalGenerated / 1000 | number : 2}}kWh)</span>
+                        <span class="progressdescription">{{(solar.data.totalYield / solar.totalGenerated) * 100 | number : 1}}% van totale opbrengst zonnepanelen ({{solar.totalGenerated / 1000 | number : 0}}kWh)</span>
                     </div>
                     <div class="infocard onlinecard">
                         <div class="content">
@@ -81,7 +81,7 @@
                             <span class="sort">uur</span>
                         </div>
                         <div class="progressbar" ng-progress progress="{{solar.percentageOnline}}" color="#b75b1c"></div>
-                        <span class="progressdescription">{{solar.percentageOnline}}% van de totale tijd online (sinds {{solar.data.dateAdded | date : 'dd MMM yyyy'}})</span>
+                        <span class="progressdescription">{{solar.percentageOnline | number : 1}}% van de totale tijd online (sinds {{solar.data.dateAdded | date : 'dd MMM yyyy'}})</span>
                     </div>
                 </div>
             </div>

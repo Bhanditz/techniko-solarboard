@@ -6,6 +6,7 @@ var solarapi = require('./routes/solar.js');
 var generatedapi = require('./routes/generated.js');
 var weatherapi = require('./routes/weather.js');
 var outputapi = require('./routes/output.js');
+var alertapi = require('./routes/alert.js');
 var crossDomain = require('./middleware/crossdomain.js');
 
 var app = express();
@@ -21,6 +22,7 @@ app.use(crossDomain);
 
 app.use('/solar/generated', generatedapi);
 app.use('/solar/output', outputapi);
+app.use('/solar/alerts', alertapi);
 app.use('/solar', solarapi);
 app.use('/weather', weatherapi);
 

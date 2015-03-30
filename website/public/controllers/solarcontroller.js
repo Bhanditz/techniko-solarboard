@@ -1,4 +1,4 @@
-app.controller('SolarController', function($scope, $stateParams, $interval, solars, outputs, moment) {
+app.controller('SolarController', function($scope, $stateParams, $interval, generated, solars, outputs, moment) {
     vm = this;
     this.solar = ($stateParams.solar);
     vm.output = 0;
@@ -9,8 +9,9 @@ app.controller('SolarController', function($scope, $stateParams, $interval, sola
         vm.percentageOnline = getPercentageOnline();
 
         getTotalGenerated();
+        getOutput();
+        getYesterdayOutput();
     });
-    getOutput();
     var timer = $interval(function() {
         getOutput();
     }, 3000);
@@ -19,6 +20,8 @@ app.controller('SolarController', function($scope, $stateParams, $interval, sola
         if (vm.solar) {
             outputs.solar(vm.solar).success(function(data) {
                 vm.output = data.output;
+                vm.outputpeak = data.output / vm.data.peak;
+                vm.outputDiff = vm.output - vm.outputYesterday * 3600 / 300;
             });
         }
     }
@@ -26,9 +29,9 @@ app.controller('SolarController', function($scope, $stateParams, $interval, sola
     function getPercentageOnline() {
         var now = moment();
         var then = moment(vm.data.dateAdded);
-        var difference = now.diff(then);
+        var duration = moment.duration(now.diff(then));
 
-        return (vm.data.hoursOnline / difference) * 100;
+        return (vm.data.hoursOnline / duration.asHours()) * 100;
     }
 
     function getTotalGenerated() {
@@ -39,5 +42,26 @@ app.controller('SolarController', function($scope, $stateParams, $interval, sola
             });
             vm.totalGenerated = total;
         });
+    }
+
+    function getYesterdayOutput() {
+        var now = moment();
+        var yesterday = moment.utc().startOf('day').subtract(1, 'days').format('X');
+        generated.getDay(yesterday, vm.solar).success(function(data) {
+            if (data) {
+                if (data[now.hours()][now.minutes() - now.minutes() % 5])
+                    vm.outputYesterday = data[now.hours()][now.minutes() - now.minutes() % 5];
+                else
+                    vm.outputYesterday = 0;
+            } else {
+                vm.outputYesterday = 0;
+            }
+        });
+    }
+
+    function isHigher() {
+        if (!vm.outputDiff)
+            return "hoger";
+        return vm.outputDiff < 0 ? "lager" : "hoger";
     }
 });

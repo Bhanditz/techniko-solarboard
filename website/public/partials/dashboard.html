@@ -32,13 +32,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="solar in dash.outputData">
+                            <tr ng-repeat="solar in dash.solarData">
                                 <td class="description">
                                     <span class='title'><a href="" ng-click="dash.open(solar)">{{solar._id}}</a></span>
                                     <p>{{solar.description}}</p>
                                 </td>
-                                <td>{{solar.output}}</td>
-                                <td>{{dash.getFromNow(solar.updated)}}</td>
+                                <td>{{dash.outputData[solar._id].output}}</td>
+                                <td>{{dash.getFromNow(dash.outputData[solar._id].date)}}</td>
                             </tr>
                         </tbody>
                     </table>

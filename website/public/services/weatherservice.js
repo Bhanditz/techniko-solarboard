@@ -15,7 +15,7 @@ app.factory('weather', function($http, $location, $interval, $cacheFactory) {
     $interval(function() {
         var cache = $cacheFactory.get('$http');
         cache.remove(url);
-    }, 1000 * 60 * 5);
+    }, 1000 * 60 * 10);
 
     return {
         current: current

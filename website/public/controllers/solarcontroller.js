@@ -2,15 +2,16 @@ app.controller('SolarController', function($scope, $stateParams, $interval, gene
     vm = this;
     this.solar = ($stateParams.solar);
     vm.output = 0;
+    vm.outputDiff = 0;
 
     solars.solar(this.solar).success(function(data) {
         vm.data = data;
         vm.outputpeak = data.output / data.peak;
         vm.percentageOnline = getPercentageOnline();
 
+        getYesterdayOutput();
         getTotalGenerated();
         getOutput();
-        getYesterdayOutput();
     });
     var timer = $interval(function() {
         getOutput();
@@ -21,7 +22,8 @@ app.controller('SolarController', function($scope, $stateParams, $interval, gene
             outputs.solar(vm.solar).success(function(data) {
                 vm.output = data.output;
                 vm.outputpeak = data.output / vm.data.peak;
-                vm.outputDiff = vm.output - vm.outputYesterday * 3600 / 300;
+                if (vm.outputYesterday)
+                    vm.outputDiff = data.output - vm.outputYesterday * 3600 / 300;
             });
         }
     }

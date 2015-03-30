@@ -29,8 +29,11 @@ var timer = setInterval(function() {
     sendOutput();
 }, 3000);
 
+
+/*
 var old = moment().subtract(4, 'months').startOf('month').startOf('minute');
 var now = moment().add(1, 'days').hour(13);
+
 
 setInterval(function() {
     if (old < now) {
@@ -39,7 +42,7 @@ setInterval(function() {
     }
 }, 50);
 
-
+*/
 
 function sendGenerated(date) {
     if (!date)

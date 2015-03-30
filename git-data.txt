@@ -1,0 +1,95 @@
+[START commit][author=Ives van Hoorne][time=1427745626][message=Added last features to solarpage (hours online + difference output) Created an alert system, if a solar panel hasn't responded for an hour > send a mail and a message New algorithm for dummydata Some small changes to all API's][hash=5dadc129e9500cfafb8ffa92428ea0597f86d136]
+ 10 files changed, 152 insertions(+), 58 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1427664325][message=Almost finished everything, added dummydatamaker for data generation for presentation][hash=25db743bdaa3ac4c7a25ed019a988355812b19e0]
+ 15 files changed, 241 insertions(+), 42 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1427648659][message=Haven't commited in a while, there are almost too many changes to mention. Started working on solarpanel page, also almost finished. I don't like the design though, don't have enough time to fix it. Added new endpoints on the server.][hash=148c91ee71243813def0d27c8f1df1d62dbd603b]
+ 26 files changed, 696 insertions(+), 154 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1427407014][message=Icon now always behind text in case of overlap][hash=5bb6d4999b3b129d01f1a738c23841c7bbbfb29b]
+ 1 file changed, 17 insertions(+), 13 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1427307414][message=Too many changes to mention. The gist is that I've been working on the new solar panel page, which is coming along very nicely.][hash=4995c4803652e513bbc5649cf61b01ea7a2a8f4a]
+ 22 files changed, 449 insertions(+), 95 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1427148997][message=Final fix for weatherbug][hash=da676084ef3f85aa5ea4dc82390ef507176597e0]
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+[START commit][author=Ives van Hoorne][time=1427143979][message=Made administration more manageable Changed url of data services to a more dynamic one (own ip address + port + path) Small mobile view changes/fixes][hash=ec085b798065fd1f1415afb7060208bce6865131]
+ 10 files changed, 63 insertions(+), 48 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1427063418][message=Removed unused weatherservice code][hash=dc99c3d6dd5535790cee72f333931f796c4cd7ee]
+ 1 file changed, 1 insertion(+), 16 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1427062482][message=Random errors omit because of changing URL of OpenWeather (I think --proxy), I'll have to look into this -Added trycatch block to prevent server crash since this error is trivial][hash=7fc5f57dbe435bd77847744b3e911efb8f574e36]
+ 1 file changed, 13 insertions(+), 10 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1427046224][message=Small weatherwidget tweak][hash=f42bbd2aa4fe9074619042b656ac5b60b0d469be]
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+[START commit][author=Ives van Hoorne][time=1427046026][message=Made the website mobile-friendly! Also added weather api Changed weather widget][hash=287e230e7dfe98e974eaadbc327117ea76f33ce9]
+ 19 files changed, 593 insertions(+), 314 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426967034][message=Year added to graphs][hash=a61ef19ec7fc4f123135a873c523022b3e05b4f3]
+ 4 files changed, 142 insertions(+), 63 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426959323][message=Graph has a button now Added endpoint for years][hash=7793785cf3726aad4331976db90cd9182de5cdf2]
+ 11 files changed, 245 insertions(+), 108 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426902714][message=MANY changes to the graph Added month view Added drilldown Changed API for a bit (added endpoint too) Added month caching Added new functions to datepicker service][hash=ba0dd980d4e82080df8eeb0ecae2db86e415c033]
+ 12 files changed, 306 insertions(+), 81 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426784127][message=Connected graph to datepicker!][hash=e426f4845180edf443141e854d0569b5aa6a6a11]
+ 18 files changed, 191 insertions(+), 174 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426712263][message=Datepicker is finished Changes overall][hash=169b070426b0d546c1d6bd44681b2796ae060167]
+ 26 files changed, 483 insertions(+), 249 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426683389][message=Changed graph info to only show if there is any info Worked on actives of month cards][hash=fa7f30dceda752b90ba7607197503041159f2e95]
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426625404][message=Finished yearpicker Started working on monthpicker][hash=18bdf569ea0e5928c7664f49817994a728699d3b]
+ 10 files changed, 221 insertions(+), 196 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426545665][message=Changed functions and folder order Working on yearpicker][hash=c6837e45c687c40fd1eecdbce72fb4ce924897ef]
+ 27 files changed, 544 insertions(+), 349 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426451723][message=Weather widget is almost done, I need to fix one quick hack.][hash=30589cb83b5c45bf50369048c4888070ad4d5fcd]
+ 9 files changed, 195 insertions(+), 45 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426422800][message=Creating weather card][hash=e8250cfc2d30794a7382d5b2cb1a8f60edf7b664]
+ 7 files changed, 109 insertions(+), 16 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426380742][message=Moved every card to an own directive Added weather API beginnings Changed Generated schema Graph improvements on dashboard Moved all data to services][hash=b91d94bb0c3bea716f088b6dd6d6396957c8aec2]
+ 22 files changed, 367 insertions(+), 227 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426270564][message=Switched from ngRoute to ui-Route Moved data to services][hash=bcbdc90fdc776b047a6cef4b28dae7efd0d62005]
+ 11 files changed, 133 insertions(+), 112 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426237053][message=Small changes][hash=a47ba66a25b1ddd5f085e146d50ae57a1da5cb77]
+ 8 files changed, 80 insertions(+), 66 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426233749][message=Graph updated to only show until time now Generated now also holds a field called 'total', shows total generation of that day][hash=f44546049ed57ae076bbf8b349f6d703e4d07d73]
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426113298][message=Small changes on Ubuntu][hash=84258d5fa977c5a08d45e9fc494ef014ec288e62]
+ 7 files changed, 21 insertions(+), 20 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426110979][message=Removed umongo related files][hash=064cf681cc88c7bc85092440fb7a9952d8421ed2]
+ 7 files changed, 93 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426100959][message=Some tweaks Added total yield][hash=c56137a2eccf27c520f0ae0fb9419ea979bec09e]
+ 6 files changed, 117 insertions(+), 78 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426093847][message=Added graphs Dashboard changes Added an API route for getting generated information][hash=21d24b2571e11eeaea38168e7b24ffd44991dc90]
+ 5 files changed, 165 insertions(+), 43 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426083576][message=Dependency files][hash=1df0287868adcc50ef432f4b5c676a06464bf106]
+ 2 files changed, 54 insertions(+), 2 deletions(-)
+
+[START commit][author=Ives van Hoorne][time=1426078487][message=Initial Commit][hash=057c989e887905d870e0e3d6838b17a60b83932d]
+ 34 files changed, 1473 insertions(+)
+
+[START commit][author=Ives van Hoorne][time=1426078253][message=initial gitignore][hash=5e211fc4211b4a79c304108b8be6fdc01471e6bd]
+ 1 file changed, 5 insertions(+)

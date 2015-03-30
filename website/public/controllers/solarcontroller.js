@@ -59,9 +59,9 @@ app.controller('SolarController', function($scope, $stateParams, $interval, gene
         });
     }
 
-    function isHigher() {
+    this.isHigher = function() {
         if (!vm.outputDiff)
             return "hoger";
         return vm.outputDiff < 0 ? "lager" : "hoger";
-    }
+    };
 });

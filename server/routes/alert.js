@@ -15,7 +15,6 @@ var CronJob = cron.CronJob;
 new CronJob('0 * * * *', function() {
     checkAlerts();
 }).start();
-checkAlerts();
 
 function checkAlerts() {
     var now = moment.utc();

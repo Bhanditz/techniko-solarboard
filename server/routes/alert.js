@@ -30,24 +30,25 @@ function checkAlerts() {
         }
         var current = moment();
         data.forEach(function(solar) {
-            console.log(solar.solar + " " + solar[current.hours() - 1].length);
-            if (solar[current.hours() - 1].length === 0) {
-                if (!solarData[solar.solar]) {
+            if (solar[current.hours() - 1]) {
+                if (solar[current.hours() - 1].length === 0) {
+                    if (!solarData[solar.solar]) {
 
-                    solarData[solar.solar] = {
-                        alerts: 1
-                    };
+                        solarData[solar.solar] = {
+                            alerts: 1
+                        };
+                    } else {
+                        solarData[solar.solar].alerts++;
+                    }
+                    console.log("Solar panel " + solar.solar + " hasn't responded for " + solarData[solar.solar].alerts + " hours!");
                 } else {
-                    solarData[solar.solar].alerts++;
+                    console.log(solar.solar + " is online");
+                    Solar.findById(solar.solar, function(err, data) {
+                        if (err) return err;
+                        data.hoursOnline++;
+                        data.save();
+                    });
                 }
-                console.log("Solar panel " + solar.solar + " hasn't responded for " + solarData[solar.solar].alerts + " hours!");
-            } else {
-                console.log(solar.solar + " is online");
-                Solar.findById(solar.solar, function(err, data) {
-                    if (err) return err;
-                    data.hoursOnline++;
-                    data.save();
-                });
             }
         });
     });

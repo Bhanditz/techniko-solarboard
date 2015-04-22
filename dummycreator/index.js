@@ -22,15 +22,15 @@ new CronJob('*/10 * * * *', function() {
     getDayBounds();
 }).start();
 getDayBounds();
-sendGenerated(moment().subtract(8, 'hours').format('X'));
+sendGenerated(moment().format('X'));
 
 
 var timer = setInterval(function() {
     sendOutput();
 }, 3000);
 
-var old = moment().subtract(14, 'days').startOf('day').startOf('minute');
-var now = moment().utc().add(1, 'days');
+var old = moment().subtract(2, 'months').startOf('day').startOf('minute');
+var now = moment().utc();
 
 setInterval(function() {
     if (old < now) {
@@ -47,7 +47,7 @@ function sendGenerated(date) {
     console.log("Sending output");
     settings.solars.forEach(function(solar) {
         request.put({
-                url: 'http://localhost:1337/solar/generated',
+            url: 'http://localhost:1337/solar/generated',
                 form: {
                     solarid: solar.name,
                     generated: calculateOutput(solar, date) * 300,
@@ -64,7 +64,7 @@ function sendOutput() {
     settings.solars.forEach(function(solar) {
         console.log("Sending: " + calculateOutput(solar));
         request.put({
-                url: 'http://localhost:1337/solar/output/' + solar.name + "/" + calculateOutput(solar)
+            url: 'http://localhost:1337/solar/output/' + solar.name + "/" + calculateOutput(solar)
             },
             function(err, httpResponse, body) {
                 if (err) throw err;

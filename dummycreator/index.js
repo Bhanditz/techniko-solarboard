@@ -75,7 +75,7 @@ function sendOutput() {
 }
 
 function getDayBounds() {
-    request('http://localhost/weather', function(err, res, body) {
+    request('http://localhost:1337/weather', function(err, res, body) {
         if (err) throw err;
         if (body && body.length !== 0) {
             var weatherData = JSON.parse(body);

@@ -3,10 +3,11 @@ var request = require('request');
 var fs = require('fs');
 var http = require('http');
 var moment = require('moment');
+var path = require('path')
 
 var CronJob = cron.CronJob;
 
-var settings = JSON.parse(fs.readFileSync('settings.json', 'utf8'));
+var settings = JSON.parse(fs.readFileSync(path.join(__dirname, 'settings.json'), 'utf8'));
 
 var startDay = 8;
 var endDay = 20;
@@ -15,7 +16,7 @@ var daymult = 0.7;
 var cloudness = 0.2;
 
 new CronJob('*/5 * * * *', function() {
-    sendGenerated();
+    sendGenerated(moment().format('X'));
 }).start();
 
 new CronJob('*/10 * * * *', function() {
@@ -29,6 +30,7 @@ var timer = setInterval(function() {
     sendOutput();
 }, 3000);
 
+/*
 var old = moment().subtract(2, 'months').startOf('day').startOf('minute');
 var now = moment().utc();
 
@@ -38,7 +40,7 @@ setInterval(function() {
         old.add(5, 'minutes');
     }
 }, 50);
-
+*/
 
 
 function sendGenerated(date) {

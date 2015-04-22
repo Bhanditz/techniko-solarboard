@@ -1,7 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
-var morgan = require('morgan');
 var http = require('http');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -30,7 +29,6 @@ if (app.get('env') == 'development') {
 
 // all environments
 app.set('port', process.env.PORT || 3000);
-app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true

@@ -585,6 +585,10 @@ nav.top-nav a.page-title {
         font-size: 50px;
     }
 
+    .infocard .icon {
+        margin-top: 5px;
+    }
+
     .bodyrow .numbers {
         font-size: 40px;
     }
@@ -593,6 +597,7 @@ nav.top-nav a.page-title {
 @media only screen and (max-width: 1200px) {
     .infocard .icon {
         font-size: 50px;
+        margin-top: 5px;
     }
 
     .infocard .sort {
@@ -611,16 +616,30 @@ nav.top-nav a.page-title {
     .solarheader .solarheaderfont {
         font-size: 40px;
     }
+    
+    .solarbody {
+        display: block;
+    }
 
     .solarbody .solarbar {
-        display: inline-block;
+        display: block;
         vertical-align: none;
         width: 100%;
     }
 
     .solarbody .solarcontent {
-        display: inline-block;
+        display: block;
         vertical-align: none;
+        width: 100%;
+    }
+
+    .solarbody .solarrow {
+        display: block;
+    }
+
+    .solarbody .graphrow {
+        display: block;
+        height: 200px;
     }
     .infocard .numbers {
         font-size: 70px;

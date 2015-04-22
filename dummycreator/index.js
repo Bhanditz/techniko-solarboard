@@ -29,11 +29,8 @@ var timer = setInterval(function() {
     sendOutput();
 }, 3000);
 
-
-/*
-var old = moment().subtract(4, 'months').startOf('month').startOf('minute');
-var now = moment().add(1, 'days').hour(13);
-
+var old = moment().subtract(14, 'days').startOf('day').startOf('minute');
+var now = moment().utc().add(1, 'days');
 
 setInterval(function() {
     if (old < now) {
@@ -42,11 +39,11 @@ setInterval(function() {
     }
 }, 50);
 
-*/
+
 
 function sendGenerated(date) {
     if (!date)
-        date = moment().format('X');
+        date = moment.utc().format('X');
     console.log("Sending output");
     settings.solars.forEach(function(solar) {
         request.put({

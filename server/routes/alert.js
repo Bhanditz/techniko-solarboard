@@ -12,9 +12,10 @@ var solarData = {};
 
 var CronJob = cron.CronJob;
 
-new CronJob('0 * * * *', function() {
+new CronJob('0 0 * * *', function() {
     checkAlerts();
 }).start();
+checkAlerts();
 
 function checkAlerts() {
     var now = moment.utc();

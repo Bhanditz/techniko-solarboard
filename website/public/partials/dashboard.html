@@ -34,10 +34,10 @@
                         <tbody>
                             <tr ng-repeat="solar in dash.solarData">
                                 <td class="description">
-                                    <span class='title'><a href="" ng-click="dash.open(solar)">{{solar._id}}</a></span>
+                                    <span class='title'><a ui-sref="solars ({ solar: solar._id})">{{solar._id}}</a></span>
                                     <p>{{solar.description}}</p>
                                 </td>
-                                <td>{{dash.outputData[solar._id].output}}</td>
+                                <td>{{dash.outputData[solar._id].output | number : 0}}</td>
                                 <td>{{dash.getFromNow(dash.outputData[solar._id].date)}}</td>
                             </tr>
                         </tbody>

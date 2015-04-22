@@ -6,6 +6,7 @@ var http = require('http');
 var path = require('path');
 var favicon = require('serve-favicon');
 
+var weatherapi = require('./routes/weather.js');
 var solarapi = require('./routes/solar.js');
 var generatedapi = require('./routes/generated.js');
 var outputapi = require('./routes/output.js');

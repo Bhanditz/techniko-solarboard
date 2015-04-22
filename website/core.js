@@ -20,7 +20,7 @@ app.use('/solar/alerts', alertapi);
 app.use('/solar', solarapi);
 app.use('/weather', weatherapi);
 
-if (app.get('env') == 'development') {
+if (process.env.NODE_ENV == 'development') {
     var browserSync = require('browser-sync');
     var bs = browserSync({
         logSnippet: false,

@@ -1,5 +1,4 @@
 app.factory('generated', function($http, $q, $location, moment) {
-    var url = 'http://' + $location.host() + ':1337';
 
     function getDay(day, solar) {
         var date;
@@ -12,11 +11,11 @@ app.factory('generated', function($http, $q, $location, moment) {
         }
 
         if (solar) {
-            return $http.get(url + '/solar/generated/solar/' + solar + "/" + date, {
+            return $http.get('/solar/generated/solar/' + solar + "/" + date, {
                 cache: true
             });
         } else {
-            return $http.get(url + '/solar/generated/date=' + date, {
+            return $http.get('/solar/generated/date=' + date, {
                 cache: true
             });
         }
@@ -36,7 +35,7 @@ app.factory('generated', function($http, $q, $location, moment) {
             totalOnlyQuery = '/true';
         }
 
-        var promise = $http.get(url + '/solar/generated/date_start=' + date.format('X') +
+        var promise = $http.get('/solar/generated/date_start=' + date.format('X') +
             "&date_end=" + date.add(1, 'months').format('X') + totalOnlyQuery, {
                 cache: true
             });
@@ -57,7 +56,7 @@ app.factory('generated', function($http, $q, $location, moment) {
         var date = year ? moment.utc(year, 'X') : moment.utc();
         date.startOf('year');
 
-        return $http.get(url + '/solar/generated/year/' + date.format('X'), {
+        return $http.get('/solar/generated/year/' + date.format('X'), {
             cache: true
         });
     }

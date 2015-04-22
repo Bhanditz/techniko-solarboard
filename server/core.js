@@ -27,7 +27,7 @@ app.use('/solar', solarapi);
 app.use('/weather', weatherapi);
 
 var server = app.listen(port, function() {
-    console.log("REST Api for MongoDB runnig succesfully on port " + port + "!");
+    console.log("REST Api for MongoDB running succesfully on port " + port + "!");
 });
 
 mongoose.connect('mongodb://localhost/solardb');

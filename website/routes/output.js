@@ -52,4 +52,21 @@ router.get('/:id', function(req, res, next) {
         res.json(solar);
 });
 
+router.put('/:id/:output', function(req, res, next) {
+    var info = {
+        name: req.params.id,
+        output: req.params.output,
+        date: new Date()
+    };
+    var solar = solaroutputs[req.params.id];
+    if (!solar) {
+        solaroutputs[req.params.id] = {};
+    }
+    solaroutputs[req.params.id] = info;
+
+    checkHighestOutout(req.params.id, req.params.output);
+
+    res.send("Succesfully added output!");
+});
+
 module.exports = router;

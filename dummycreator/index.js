@@ -49,7 +49,7 @@ function sendGenerated(date) {
     console.log("Sending output");
     settings.solars.forEach(function(solar) {
         request.put({
-            url: 'http://localhost:1337/solar/generated',
+                url: 'http://localhost:1337/solar/generated',
                 form: {
                     solarid: solar.name,
                     generated: calculateOutput(solar, date) * 300,
@@ -66,7 +66,7 @@ function sendOutput() {
     settings.solars.forEach(function(solar) {
         console.log("Sending: " + calculateOutput(solar));
         request.put({
-            url: 'http://localhost:1337/solar/output/' + solar.name + "/" + calculateOutput(solar)
+                url: 'http://localhost/solar/output/' + solar.name + "/" + calculateOutput(solar)
             },
             function(err, httpResponse, body) {
                 if (err) throw err;
@@ -75,7 +75,7 @@ function sendOutput() {
 }
 
 function getDayBounds() {
-    request('http://localhost:1337/weather', function(err, res, body) {
+    request('http://localhost/weather', function(err, res, body) {
         if (err) throw err;
         if (body && body.length !== 0) {
             var weatherData = JSON.parse(body);

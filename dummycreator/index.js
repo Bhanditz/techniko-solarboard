@@ -44,16 +44,13 @@ setInterval(function() {
 
 
 function sendGenerated(date) {
-    if (!date)
-        date = moment.utc().format('X');
     console.log("Sending output");
     settings.solars.forEach(function(solar) {
         request.put({
                 url: 'http://localhost:1337/solar/generated',
                 form: {
                     solarid: solar.name,
-                    generated: calculateOutput(solar, date) * 300,
-                    date: date
+                    generated: calculateOutput(solar, date) * 300
                 }
             },
             function(err, httpResponse, body) {

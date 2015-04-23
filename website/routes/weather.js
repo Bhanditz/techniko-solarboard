@@ -22,8 +22,7 @@ function loadWeather() {
     request("http://api.openweathermap.org/data/2.5/weather" + "?id=" + city + '&units=metric' + '&lang=nl' + '&APPID=' + APPID, function(err, response, body) {
         if (err) {
             console.log("WeatherRequest: " + err);
-            return (err);
-        }
+        } else 
         weatherData = JSON.parse(body);
     });
 }

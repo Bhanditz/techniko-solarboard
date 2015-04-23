@@ -16,14 +16,14 @@ var daymult = 0.7;
 var cloudness = 0.2;
 
 new CronJob('*/5 * * * *', function() {
-    sendGenerated(moment().format('X'));
+    sendGenerated();
 }).start();
 
 new CronJob('*/10 * * * *', function() {
     getDayBounds();
 }).start();
 getDayBounds();
-sendGenerated(moment().format('X'));
+sendGenerated(moment.utc().format('X'));
 
 
 var timer = setInterval(function() {
@@ -66,17 +66,17 @@ function sendOutput() {
     settings.solars.forEach(function(solar) {
         console.log("Sending: " + calculateOutput(solar));
         request.put({
-                url: 'http://localhost/solar/output/' + solar.name + "/" + calculateOutput(solar)
+                url: 'http://localhost:3000/solar/output/' + solar.name + "/" + calculateOutput(solar)
             },
             function(err, httpResponse, body) {
-                if (err) throw err;
+                if (err) console.log(err);
             });
     });
 }
 
 function getDayBounds() {
     request('http://localhost:1337/weather', function(err, res, body) {
-        if (err) throw err;
+        if (err) console.log(err);
         if (body && body.length !== 0) {
             var weatherData = JSON.parse(body);
             if (weatherData.sys) {
